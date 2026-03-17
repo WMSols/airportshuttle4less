@@ -1,3 +1,5 @@
+import 'package:airportshuttle4less/domain/entities/comment.dart';
+
 /// Support ticket entity
 class SupportTicket {
   final String id;
@@ -78,14 +80,21 @@ class ContactInfo {
 
 /// Support repository interface defining support operations
 abstract class SupportRepository {
-  /// Save a comment/feedback
-  Future<void> saveComment({
+  /// Load all comments (reviews). Returns list from LoadAllComment Arr.
+  Future<List<Comment>> loadAllComments();
+
+  /// Save a comment/feedback. Date format yyyy-MM-dd.
+  Future<bool> saveComment({
     required String name,
     required String email,
     required String phone,
     required String comment,
+    required String date,
     String? bookingReference,
   });
+
+  /// Delete a comment by Sid.
+  Future<bool> deleteComment(int sid);
 
   /// Request a quote for corporate booking
   Future<void> requestQuote({
@@ -107,6 +116,33 @@ abstract class SupportRepository {
     required String email,
     required String subject,
     required String message,
+  });
+
+  /// EnquiryMail – contact form (Name, MobileNo, Email, Message). Returns true if retCode == 1.
+  Future<bool> sendEnquiry({
+    required String name,
+    required String mobileNo,
+    required String email,
+    required String message,
+  });
+
+  /// QuoteMail – personalized quote request. Returns true if retCode == 1.
+  Future<bool> sendQuoteMail({
+    required String firstName,
+    required String lastName,
+    required String pickUpDate,
+    required String pickUpTime,
+    required String pickUpLocation,
+    required String destination,
+    required String serviceType,
+    required String vehicleType,
+    required String hours,
+    required String passengers,
+    required String phone,
+    required String email,
+    required String message,
+    required String currentPageUrl,
+    String ccEmails = '',
   });
 
   /// Get FAQ items

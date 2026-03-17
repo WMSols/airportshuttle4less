@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
-import '../../../core/utils/app_colors/app_colors.dart';
-import '../../../core/utils/app_responsive/app_responsive.dart';
-import '../../../core/utils/app_spacing/app_spacing.dart';
-import '../../../core/utils/app_styles/app_text_styles.dart';
-import '../../routes/app_routes.dart';
+import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
+import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
+import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
+import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_custom_app_bar.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
+import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 
 /// Support screen
 class SupportScreen extends StatelessWidget {
@@ -13,52 +16,55 @@ class SupportScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        title: Text(
-          'Support',
-          style: AppTextStyles.heading(context).copyWith(
-            color: AppColors.black,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: AppCustomBackground(
+            isMain: true,
+            child: const SizedBox.shrink(),
           ),
         ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: AppSpacing.padding(context, multiplier: 1.3),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'How can we help you?',
-              style: AppTextStyles.heading(context).copyWith(
-                color: AppColors.black,
-              ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppCustomAppBar(
+            title: 'Support',
+            automaticallyImplyLeading: false,
+          ),
+          body: SingleChildScrollView(
+            padding: AppSpacing.padding(context, multiplier: 1.3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'How can we help you?',
+                  style: AppTextStyles.heading(
+                    context,
+                  ).copyWith(color: AppColors.black),
+                ),
+                AppSpacing.vertical(context, 0.02),
+                _SupportItem(
+                  icon: Iconsax.message_question,
+                  title: 'FAQs',
+                  subtitle: 'Find answers to common questions',
+                  onTap: () => Get.toNamed(AppRoutes.faqs),
+                ),
+                _SupportItem(
+                  icon: Iconsax.sms,
+                  title: 'Contact Us',
+                  subtitle: 'Get in touch with our support team',
+                  onTap: () => Get.toNamed(AppRoutes.contactUs),
+                ),
+                _SupportItem(
+                  icon: Iconsax.building_4,
+                  title: 'Corporate Quotes',
+                  subtitle: 'Request a quote for your company',
+                  onTap: () => Get.toNamed(AppRoutes.corporateQuote),
+                ),
+              ],
             ),
-            AppSpacing.vertical(context, 0.02),
-            _SupportItem(
-              icon: Icons.help_outline,
-              title: 'FAQs',
-              subtitle: 'Find answers to common questions',
-              onTap: () => Get.toNamed(AppRoutes.faqs),
-            ),
-            _SupportItem(
-              icon: Icons.email_outlined,
-              title: 'Contact Us',
-              subtitle: 'Get in touch with our support team',
-              onTap: () => Get.toNamed(AppRoutes.contactUs),
-            ),
-            _SupportItem(
-              icon: Icons.business,
-              title: 'Corporate Quotes',
-              subtitle: 'Request a quote for your company',
-              onTap: () => Get.toNamed(AppRoutes.corporateQuote),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -100,19 +106,18 @@ class _SupportItem extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: AppTextStyles.bodyText(context).copyWith(
-            fontWeight: FontWeight.w600,
-            color: AppColors.black,
-          ),
+          style: AppTextStyles.bodyText(
+            context,
+          ).copyWith(fontWeight: FontWeight.w600, color: AppColors.black),
         ),
         subtitle: Text(
           subtitle,
-          style: AppTextStyles.hintText(context).copyWith(
-            color: AppColors.grey,
-          ),
+          style: AppTextStyles.hintText(
+            context,
+          ).copyWith(color: AppColors.grey),
         ),
         trailing: Icon(
-          Icons.chevron_right,
+          Iconsax.arrow_right_3,
           color: AppColors.grey,
           size: AppResponsive.iconSize(context),
         ),

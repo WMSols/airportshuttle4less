@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
@@ -36,7 +37,11 @@ class AppMessageBanner extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(effectiveIcon, size: AppResponsive.iconSize(context), color: iconColor),
+          Icon(
+            effectiveIcon,
+            size: AppResponsive.iconSize(context),
+            color: iconColor,
+          ),
           AppSpacing.horizontal(context, 0.02),
           Expanded(
             child: Text(
@@ -61,21 +66,21 @@ class AppMessageBanner extends StatelessWidget {
           AppColors.information.withValues(alpha: 0.1),
           AppColors.information.withValues(alpha: 0.5),
           AppColors.information,
-          Icons.info_outline_rounded,
+          Iconsax.info_circle,
         );
       case AppMessageBannerType.warning:
         return (
           AppColors.warning.withValues(alpha: 0.1),
           AppColors.warning.withValues(alpha: 0.5),
           AppColors.warning,
-          Icons.warning_amber_rounded,
+          Iconsax.warning_2,
         );
       case AppMessageBannerType.success:
         return (
           AppColors.success.withValues(alpha: 0.15),
           AppColors.success.withValues(alpha: 0.5),
           AppColors.success,
-          Icons.check_circle_outline,
+          Iconsax.tick_circle,
         );
     }
   }

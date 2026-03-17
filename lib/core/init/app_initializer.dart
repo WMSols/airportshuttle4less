@@ -1,8 +1,8 @@
-﻿import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart';
 
-import '../config/env_config.dart';
-import '../../di/injection.dart';
-import '../../presentation/routes/app_routes.dart';
+import 'package:airportshuttle4less/core/config/env_config.dart';
+import 'package:airportshuttle4less/di/injection.dart';
+import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 
 /// Handles async app bootstrap: env, DI, and initial route resolution.
 abstract class AppInitializer {

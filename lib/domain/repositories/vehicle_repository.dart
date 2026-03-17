@@ -1,4 +1,4 @@
-import '../entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
 
 /// Vehicle repository interface defining vehicle-related operations
 abstract class VehicleRepository {

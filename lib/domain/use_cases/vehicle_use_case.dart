@@ -1,5 +1,5 @@
-import '../entities/vehicle.dart';
-import '../repositories/vehicle_repository.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/repositories/vehicle_repository.dart';
 
 /// Vehicle use case for vehicle-related operations
 class VehicleUseCase {

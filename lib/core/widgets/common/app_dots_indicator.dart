@@ -36,8 +36,8 @@ class AppDotsIndicator extends StatelessWidget {
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
             width: currentIndex == i
-                ? AppResponsive.scaleSize(context, 40)
-                : AppResponsive.scaleSize(context, 8),
+                ? AppResponsive.scaleSize(context, 150)
+                : AppResponsive.scaleSize(context, 30),
             height: AppResponsive.scaleSize(context, 8),
             decoration: BoxDecoration(
               color: currentIndex == i ? active : Colors.transparent,

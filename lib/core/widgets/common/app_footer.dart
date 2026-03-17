@@ -1,4 +1,5 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
@@ -41,7 +42,7 @@ class AppFooter extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
-                Icons.copyright,
+                Iconsax.copyright,
                 size: AppResponsive.iconSize(context, factor: 0.8),
                 color: AppColors.error.withValues(alpha: 0.5),
               ),

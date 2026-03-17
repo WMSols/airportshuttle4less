@@ -1,4 +1,4 @@
-import '../../../domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
 
 /// Vehicle model from API
 class VehicleModel {
@@ -31,7 +31,8 @@ class VehicleModel {
       type: json['type'] ?? '',
       capacity: json['capacity'] ?? 1,
       imageUrl: json['image_url'] ?? json['imageUrl'] ?? '',
-      pricePerPerson: (json['price_per_person'] ?? json['pricePerPerson'] ?? 0).toDouble(),
+      pricePerPerson: (json['price_per_person'] ?? json['pricePerPerson'] ?? 0)
+          .toDouble(),
       totalPrice: (json['total_price'] ?? json['totalPrice'] ?? 0).toDouble(),
       amenities: json['amenities'] != null
           ? List<String>.from(json['amenities'])

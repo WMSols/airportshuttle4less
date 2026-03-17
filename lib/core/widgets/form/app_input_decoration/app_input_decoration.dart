@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
@@ -25,12 +25,12 @@ class AppInputDecoration {
           ? Icon(
               prefixIcon,
               size: AppResponsive.iconSize(context),
-              color: AppColors.black,
+              color: AppColors.primary,
             )
           : null,
       suffixIcon: suffixIcon,
       filled: true,
-      fillColor: AppColors.primary.withValues(alpha: 0.3),
+      fillColor: AppColors.grey.withValues(alpha: 0.3),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(radius),
         borderSide: BorderSide.none,

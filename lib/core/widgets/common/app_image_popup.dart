@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
@@ -97,8 +98,12 @@ class _FullScreenImagePage extends StatelessWidget {
               ),
             );
           },
-          errorBuilder: (_, __, ___) =>
-              Center(child: Icon(Icons.broken_image_outlined, size: AppResponsive.scaleSize(context, 64))),
+          errorBuilder: (_, __, ___) => Center(
+            child: Icon(
+              Iconsax.gallery_remove,
+              size: AppResponsive.scaleSize(context, 64),
+            ),
+          ),
         ),
       );
     } else if (hasFile) {
@@ -107,7 +112,7 @@ class _FullScreenImagePage extends StatelessWidget {
       );
     } else {
       imageWidget = Center(
-        child: Icon(Icons.image_not_supported, size: AppResponsive.scaleSize(context, 64)),
+        child: Icon(Iconsax.image, size: AppResponsive.scaleSize(context, 64)),
       );
     }
 
@@ -115,10 +120,9 @@ class _FullScreenImagePage extends StatelessWidget {
       backgroundColor: AppColors.black,
       appBar: AppCustomAppBar(
         title: '',
-        backgroundColor: AppColors.black,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: const Icon(Icons.close),
+          icon: const Icon(Iconsax.close_circle),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),

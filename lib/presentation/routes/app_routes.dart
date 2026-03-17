@@ -24,14 +24,25 @@ abstract class AppRoutes {
   static const String myBookings = '/my-bookings';
   static const String bookingDetail = '/booking-detail';
 
+  // Reservation (3-step flow)
+  static const String reservation = '/reservation';
+  static const String reservationRideInfo = '/reservation/ride-info';
+  static const String reservationSelectVehicle = '/reservation/select-vehicle';
+  static const String reservationPaymentInfo = '/reservation/payment-info';
+  static const String reservationSuccess = '/reservation/success';
+
   // Profile
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
   static const String changePassword = '/change-password';
+  static const String reviews = '/reviews';
+  static const String leaveReview = '/leave-review';
 
-  // Support
+  // Support (accessed from Profile)
   static const String support = '/support';
   static const String faqs = '/faqs';
   static const String contactUs = '/contact-us';
   static const String corporateQuote = '/corporate-quote';
+  static const String terms = '/terms';
+  static const String privacy = '/privacy';
 }

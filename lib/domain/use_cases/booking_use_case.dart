@@ -1,7 +1,7 @@
-import '../entities/booking.dart';
-import '../entities/vehicle.dart';
-import '../entities/location.dart';
-import '../repositories/booking_repository.dart';
+import 'package:airportshuttle4less/domain/entities/booking.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/entities/location.dart';
+import 'package:airportshuttle4less/domain/repositories/booking_repository.dart';
 
 /// Booking use case for reservation operations
 class BookingUseCase {

@@ -1,6 +1,5 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
-import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
@@ -35,11 +34,7 @@ class AppDetailRow extends StatelessWidget {
         Text(
           value,
           style: valueColor != null
-              ? baseStyle.copyWith(
-                  color: valueColor,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: AppFonts.primaryFont,
-                )
+              ? baseStyle.copyWith(color: valueColor)
               : baseStyle,
         );
 

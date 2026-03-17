@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
@@ -34,7 +35,7 @@ class BookingDetailScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Icons.check_circle,
+                    Iconsax.tick_circle,
                     color: AppColors.success,
                     size: AppResponsive.iconSize(context),
                   ),
@@ -44,15 +45,15 @@ class BookingDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         AppTexts.bookingReference,
-                        style: AppTextStyles.hintText(context).copyWith(
-                          color: AppColors.grey,
-                        ),
+                        style: AppTextStyles.hintText(
+                          context,
+                        ).copyWith(color: AppColors.grey),
                       ),
                       Text(
                         'ASL-123456',
-                        style: AppTextStyles.bodyText(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyles.bodyText(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -81,16 +82,16 @@ class BookingDetailScreen extends StatelessWidget {
             // Trip Details
             Text(
               'Trip Details',
-              style: AppTextStyles.heading(context).copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.heading(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
             ),
             AppSpacing.vertical(context, 0.015),
 
             // Pickup
             _buildLocationRow(
               context: context,
-              icon: Icons.trip_origin,
+              icon: Iconsax.routing_2,
               iconColor: AppColors.success,
               title: 'Pickup',
               address: '123 Main Street, New York, NY 10001',
@@ -101,7 +102,7 @@ class BookingDetailScreen extends StatelessWidget {
             // Dropoff
             _buildLocationRow(
               context: context,
-              icon: Icons.location_on,
+              icon: Iconsax.location,
               iconColor: AppColors.error,
               title: 'Drop-off',
               address: 'JFK International Airport, New York, NY 11430',
@@ -119,7 +120,7 @@ class BookingDetailScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Icon(
-                    Icons.directions_car,
+                    Iconsax.car,
                     color: AppColors.primary,
                     size: AppResponsive.scaleSize(context, 40),
                   ),
@@ -129,15 +130,15 @@ class BookingDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Standard Sedan',
-                        style: AppTextStyles.bodyText(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyles.bodyText(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '3 Passengers',
-                        style: AppTextStyles.hintText(context).copyWith(
-                          color: AppColors.grey,
-                        ),
+                        style: AppTextStyles.hintText(
+                          context,
+                        ).copyWith(color: AppColors.grey),
                       ),
                     ],
                   ),
@@ -149,9 +150,9 @@ class BookingDetailScreen extends StatelessWidget {
             // Price Details
             Text(
               'Price Details',
-              style: AppTextStyles.heading(context).copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: AppTextStyles.heading(
+                context,
+              ).copyWith(fontWeight: FontWeight.bold),
             ),
             AppSpacing.vertical(context, 0.015),
 
@@ -166,8 +167,10 @@ class BookingDetailScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Price per person',
-                          style: AppTextStyles.bodyText(context)),
+                      Text(
+                        'Price per person',
+                        style: AppTextStyles.bodyText(context),
+                      ),
                       Text('\$25.00', style: AppTextStyles.bodyText(context)),
                     ],
                   ),
@@ -175,8 +178,10 @@ class BookingDetailScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Passengers',
-                          style: AppTextStyles.bodyText(context)),
+                      Text(
+                        'Passengers',
+                        style: AppTextStyles.bodyText(context),
+                      ),
                       Text('3', style: AppTextStyles.bodyText(context)),
                     ],
                   ),
@@ -186,9 +191,9 @@ class BookingDetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Total',
-                        style: AppTextStyles.bodyText(context).copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: AppTextStyles.bodyText(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.bold),
                       ),
                       Text(
                         '\$75.00',
@@ -227,21 +232,21 @@ class BookingDetailScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: AppTextStyles.bodyText(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.bodyText(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
               ),
               Text(
                 address,
-                style: AppTextStyles.bodyText(context).copyWith(
-                  color: AppColors.grey,
-                ),
+                style: AppTextStyles.bodyText(
+                  context,
+                ).copyWith(color: AppColors.grey),
               ),
               Text(
                 time,
-                style: AppTextStyles.hintText(context).copyWith(
-                  color: AppColors.primary,
-                ),
+                style: AppTextStyles.hintText(
+                  context,
+                ).copyWith(color: AppColors.primary),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'package:flutter_map/flutter_map.dart';
@@ -88,7 +89,7 @@ class _LocationPickerMapState extends State<LocationPickerMap> {
                     width: AppResponsive.scaleSize(context, 40),
                     height: AppResponsive.scaleSize(context, 40),
                     child: Icon(
-                      Icons.location_pin,
+                      Iconsax.location,
                       color: AppColors.error,
                       size: AppResponsive.iconSize(context, factor: 1.5),
                     ),

@@ -1,13 +1,13 @@
+import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
+import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/utils/app_colors/app_colors.dart';
-import '../../../core/utils/app_images/app_images.dart';
-import '../../../core/utils/app_responsive/app_responsive.dart';
-import '../../../core/utils/app_spacing/app_spacing.dart';
-import '../../../core/utils/app_styles/app_text_styles.dart';
-import '../../../domain/use_cases/auth_use_case.dart';
-import '../../routes/app_routes.dart';
+import 'package:airportshuttle4less/core/utils/app_images/app_images.dart';
+import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
+import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
+import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 
 /// Splash screen with gradient background and animated logo
 class SplashScreen extends StatefulWidget {
@@ -77,35 +77,40 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [AppColors.primary, AppColors.secondary],
-          ),
+    return Stack(
+      children: [
+        // Fixed full-screen background
+        Positioned.fill(
+          child: AppCustomBackground(child: const SizedBox.shrink()),
         ),
-        child: Center(
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return FadeTransition(
-                opacity: _fadeAnimation,
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: Image.asset(
-                    AppImages.appLogo,
-                    width: AppResponsive.scaleSize(context, 180),
-                    height: AppResponsive.scaleSize(context, 180),
-                    fit: BoxFit.contain,
+        // Content
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Center(
+            child: AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: ScaleTransition(
+                    scale: _scaleAnimation,
+                    child: Center(
+                      child: CircleAvatar(
+                        radius: AppResponsive.scaleSize(context, 60),
+                        backgroundColor: AppColors.black,
+                        child: Padding(
+                          padding: AppSpacing.all(context),
+                          child: Image.asset(AppImages.appLogo),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

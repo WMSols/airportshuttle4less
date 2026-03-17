@@ -29,7 +29,8 @@ class Vehicle {
 
   bool get hasAc => amenities.any((a) => a.toLowerCase().contains('ac'));
   bool get hasWifi => amenities.any((a) => a.toLowerCase().contains('wifi'));
-  bool get hasLuggage => amenities.any((a) => a.toLowerCase().contains('luggage'));
+  bool get hasLuggage =>
+      amenities.any((a) => a.toLowerCase().contains('luggage'));
 
   int get availableSeats => capacity;
 

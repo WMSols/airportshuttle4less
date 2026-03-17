@@ -27,7 +27,7 @@ class AppNoConnectionBanner extends StatelessWidget {
             if (connectivity.isOnline.value) return const SizedBox.shrink();
             return Container(
               width: double.infinity,
-              color: AppColors.black,
+              color: AppColors.primary,
               child: SafeArea(
                 top: false,
                 child: Center(
