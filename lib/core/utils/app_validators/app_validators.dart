@@ -1,8 +1,79 @@
 import 'package:airportshuttle4less/core/utils/app_helper/app_helper.dart';
+import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:get/get.dart';
 
 /// Validators: form validation and error messages only.
 /// For display formatting use [AppFormatter]; for string/list helpers use [AppHelper].
 class AppValidators {
+  /// Email validation with strict checks (required, length, format, no spaces)
+  static String? validateEmail(String? value) {
+    if (AppHelper.isNullOrEmpty(value)) {
+      return AppTexts.emailRequired;
+    }
+    final s = value!.trim();
+    if (s.isEmpty) {
+      return AppTexts.emailRequired;
+    }
+
+    // Minimum length (e.g. a@b.co)
+    if (s.length < 5) {
+      return AppTexts.emailTooShort;
+    }
+
+    // Maximum length (RFC 5321)
+    if (s.length > 254) {
+      return AppTexts.emailTooLong;
+    }
+
+    // No spaces
+    if (s.contains(' ')) {
+      return AppTexts.emailNoSpaces;
+    }
+
+    // Valid format (local@domain)
+    if (!GetUtils.isEmail(s)) {
+      return AppTexts.validEmailRequired;
+    }
+
+    // Must contain exactly one @
+    final atCount = '@'.allMatches(s).length;
+    if (atCount != 1) {
+      return AppTexts.validEmailRequired;
+    }
+
+    final parts = s.split('@');
+    final local = parts[0];
+    final domain = parts[1];
+
+    // Local and domain non-empty
+    if (local.isEmpty || domain.isEmpty) {
+      return AppTexts.validEmailRequired;
+    }
+
+    // Domain must contain at least one dot
+    if (!domain.contains('.')) {
+      return AppTexts.validEmailRequired;
+    }
+
+    // No consecutive dots
+    if (s.contains('..')) {
+      return AppTexts.validEmailRequired;
+    }
+
+    return null;
+  }
+
+  /// Confirm password matches [password].
+  static String? validateConfirmPassword(String? value, String password) {
+    if (AppHelper.isNullOrEmpty(value)) {
+      return AppTexts.confirmPasswordRequired;
+    }
+    if (value != password) {
+      return AppTexts.passwordsDoNotMatch;
+    }
+    return null;
+  }
+
   /// Phone number validation with international format support
   static String? validatePhone(String? value) {
     if (AppHelper.isNullOrEmpty(value)) {
@@ -48,7 +119,7 @@ class AppValidators {
   /// Password validation with advanced checks
   static String? validatePassword(String? value) {
     if (AppHelper.isNullOrEmpty(value)) {
-      return 'Password is required';
+      return AppTexts.passwordRequired;
     }
     final s = value!;
 
@@ -124,6 +195,14 @@ class AppValidators {
   static String? validateRequired(String? value, [String? fieldName]) {
     if (AppHelper.isNullOrEmpty(value)) {
       return '${fieldName ?? 'This field'} is required';
+    }
+    return null;
+  }
+
+  /// Name required (uses AppTexts.nameRequired)
+  static String? validateRequiredName(String? value) {
+    if (AppHelper.isNullOrEmpty(value)) {
+      return AppTexts.nameRequired;
     }
     return null;
   }

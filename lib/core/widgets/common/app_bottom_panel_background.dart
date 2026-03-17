@@ -1,11 +1,10 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 
-/// Onboarding bottom panel with a curved top edge and a gradient background
-/// (primary → secondary). Wrap the content (title, subtitle, buttons, dots)
-/// that should appear inside the coloured panel.
+/// Bottom panel with a curved top edge and a gradient background
+/// (primary → secondary). The panel auto-sizes based on child content.
 class AppBottomPanelBackground extends StatelessWidget {
   const AppBottomPanelBackground({super.key, required this.child});
 
@@ -16,7 +15,6 @@ class AppBottomPanelBackground extends StatelessWidget {
     final topRadius = AppResponsive.radius(context, factor: 6);
     return Container(
       width: double.infinity,
-      height: AppResponsive.screenHeight(context)*0.32,
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
@@ -28,7 +26,7 @@ class AppBottomPanelBackground extends StatelessWidget {
           topRight: Radius.circular(topRadius),
         ),
       ),
-      child: child,
+      child: IntrinsicHeight(child: child),
     );
   }
 }

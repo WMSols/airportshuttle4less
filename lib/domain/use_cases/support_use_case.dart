@@ -1,4 +1,5 @@
-import '../repositories/support_repository.dart';
+import 'package:airportshuttle4less/domain/entities/comment.dart';
+import 'package:airportshuttle4less/domain/repositories/support_repository.dart';
 
 /// Support use case for support operations
 class SupportUseCase {
@@ -6,12 +7,18 @@ class SupportUseCase {
 
   SupportUseCase(this._repository);
 
-  /// Save a comment/feedback
-  Future<void> saveComment({
+  /// Load all comments (reviews).
+  Future<List<Comment>> loadAllComments() {
+    return _repository.loadAllComments();
+  }
+
+  /// Save a comment/feedback. Date in yyyy-MM-dd.
+  Future<bool> saveComment({
     required String name,
     required String email,
     required String phone,
     required String comment,
+    required String date,
     String? bookingReference,
   }) {
     return _repository.saveComment(
@@ -19,8 +26,14 @@ class SupportUseCase {
       email: email,
       phone: phone,
       comment: comment,
+      date: date,
       bookingReference: bookingReference,
     );
+  }
+
+  /// Delete a comment by id.
+  Future<bool> deleteComment(int sid) {
+    return _repository.deleteComment(sid);
   }
 
   /// Request a quote for corporate booking
@@ -62,6 +75,58 @@ class SupportUseCase {
       email: email,
       subject: subject,
       message: message,
+    );
+  }
+
+  /// EnquiryMail – contact form. Returns true if retCode == 1.
+  Future<bool> sendEnquiry({
+    required String name,
+    required String mobileNo,
+    required String email,
+    required String message,
+  }) {
+    return _repository.sendEnquiry(
+      name: name,
+      mobileNo: mobileNo,
+      email: email,
+      message: message,
+    );
+  }
+
+  /// QuoteMail – personalized quote request. Returns true if retCode == 1.
+  Future<bool> sendQuoteMail({
+    required String firstName,
+    required String lastName,
+    required String pickUpDate,
+    required String pickUpTime,
+    required String pickUpLocation,
+    required String destination,
+    required String serviceType,
+    required String vehicleType,
+    required String hours,
+    required String passengers,
+    required String phone,
+    required String email,
+    required String message,
+    required String currentPageUrl,
+    String ccEmails = '',
+  }) {
+    return _repository.sendQuoteMail(
+      firstName: firstName,
+      lastName: lastName,
+      pickUpDate: pickUpDate,
+      pickUpTime: pickUpTime,
+      pickUpLocation: pickUpLocation,
+      destination: destination,
+      serviceType: serviceType,
+      vehicleType: vehicleType,
+      hours: hours,
+      passengers: passengers,
+      phone: phone,
+      email: email,
+      message: message,
+      currentPageUrl: currentPageUrl,
+      ccEmails: ccEmails,
     );
   }
 

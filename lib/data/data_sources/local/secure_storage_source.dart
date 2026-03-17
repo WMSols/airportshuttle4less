@@ -1,16 +1,17 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import '../../../core/constants/storage_keys.dart';
+
+import 'package:airportshuttle4less/core/constants/storage_keys.dart';
 
 /// Secure storage wrapper for local data persistence
 class SecureStorageSource {
   final FlutterSecureStorage _storage;
 
   SecureStorageSource({FlutterSecureStorage? storage})
-      : _storage = storage ?? const FlutterSecureStorage(
-          aOptions: AndroidOptions(
-            encryptedSharedPreferences: true,
-          ),
-        );
+    : _storage =
+          storage ??
+          const FlutterSecureStorage(
+            aOptions: AndroidOptions(encryptedSharedPreferences: true),
+          );
 
   /// Save user ID
   Future<void> saveUserId(String userId) async {
@@ -45,7 +46,10 @@ class SecureStorageSource {
 
   /// Save onboarding completed status
   Future<void> saveOnboardingCompleted(bool value) async {
-    await _storage.write(key: StorageKeys.onboardingCompleted, value: value.toString());
+    await _storage.write(
+      key: StorageKeys.onboardingCompleted,
+      value: value.toString(),
+    );
   }
 
   /// Get onboarding completed status
@@ -62,6 +66,22 @@ class SecureStorageSource {
   /// Get saved email
   Future<String?> getSavedEmail() async {
     return await _storage.read(key: StorageKeys.savedEmail);
+  }
+
+  /// Save password for remember me (pre-fill only; use secure storage)
+  Future<void> saveSavedPassword(String password) async {
+    await _storage.write(key: StorageKeys.rememberedPassword, value: password);
+  }
+
+  /// Get saved password for remember me
+  Future<String?> getSavedPassword() async {
+    return await _storage.read(key: StorageKeys.rememberedPassword);
+  }
+
+  /// Clear remembered credentials (email/password)
+  Future<void> clearRememberedCredentials() async {
+    await _storage.delete(key: StorageKeys.savedEmail);
+    await _storage.delete(key: StorageKeys.rememberedPassword);
   }
 
   /// Clear user data

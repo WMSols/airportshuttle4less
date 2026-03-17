@@ -32,7 +32,7 @@ class AppTextStyles {
 
   static TextStyle buttonText(BuildContext context) => TextStyle(
     fontSize: AppResponsive.screenWidth(context) * 0.045,
-    fontFamily: AppFonts.secondaryFont,
+    fontFamily: AppFonts.primaryFont,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   );

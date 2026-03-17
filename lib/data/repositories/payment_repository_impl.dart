@@ -1,5 +1,5 @@
-import '../../domain/repositories/payment_repository.dart';
-import '../data_sources/remote/payment_api.dart';
+import 'package:airportshuttle4less/domain/repositories/payment_repository.dart';
+import 'package:airportshuttle4less/data/data_sources/remote/payment_api.dart';
 
 /// Payment repository implementation
 /// No payment endpoints are documented in the API documentation

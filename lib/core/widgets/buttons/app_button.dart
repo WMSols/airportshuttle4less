@@ -93,26 +93,43 @@ class AppButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (icon != null && iconPosition == IconPosition.left) ...[
-                Icon(icon, size: AppResponsive.iconSize(context), color: iconColor),
+                Icon(
+                  icon,
+                  size: AppResponsive.iconSize(context),
+                  color: iconColor,
+                ),
                 AppSpacing.horizontal(context, 0.01),
               ],
               Text(
                 label,
-                style: AppTextStyles.buttonText(context).copyWith(color: textColor),
+                style: AppTextStyles.buttonText(
+                  context,
+                ).copyWith(color: textColor),
               ),
               if (icon != null && iconPosition == IconPosition.right) ...[
                 AppSpacing.horizontal(context, 0.01),
-                Icon(icon, size: AppResponsive.iconSize(context), color: iconColor),
+                Icon(
+                  icon,
+                  size: AppResponsive.iconSize(context),
+                  color: iconColor,
+                ),
               ],
             ],
           );
 
-    final backgroundColor = this.backgroundColor ??
-        (isDisabled ? AppColors.grey : (effectivePrimary ? AppColors.primary : AppColors.white));
+    final backgroundColor =
+        this.backgroundColor ??
+        (isDisabled
+            ? AppColors.grey
+            : (effectivePrimary ? AppColors.primary : AppColors.white));
     final effectiveShowBorder = showBorder ?? true;
     final border = isDisabled
         ? null
-        : (effectivePrimary ? null : (effectiveShowBorder ? Border.all(color: AppColors.primary) : null));
+        : (effectivePrimary
+              ? null
+              : (effectiveShowBorder
+                    ? Border.all(color: AppColors.primary)
+                    : null));
 
     return Material(
       color: backgroundColor,

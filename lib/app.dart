@@ -7,7 +7,6 @@ import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
 import 'package:airportshuttle4less/core/widgets/feedback/app_no_connection_banner.dart';
 import 'package:airportshuttle4less/presentation/routes/app_pages.dart';
 
-
 class AirportShuttles4LessApp extends StatelessWidget {
   const AirportShuttles4LessApp({super.key, required this.initialRoute});
 

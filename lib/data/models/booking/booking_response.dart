@@ -1,7 +1,7 @@
-import '../../../domain/entities/booking.dart';
-import '../../../domain/entities/location.dart';
-import '../auth/user_model.dart';
-import '../vehicle/vehicle_model.dart';
+import 'package:airportshuttle4less/domain/entities/booking.dart';
+import 'package:airportshuttle4less/domain/entities/location.dart';
+import 'package:airportshuttle4less/data/models/auth/user_model.dart';
+import 'package:airportshuttle4less/data/models/vehicle/vehicle_model.dart';
 
 /// Booking response model from API
 class BookingResponse {
@@ -165,8 +165,7 @@ class BookingResponse {
       paymentStatus: _parsePaymentStatus(paymentStatus),
       notes: notes,
       createdAt: DateTime.tryParse(createdAt) ?? DateTime.now(),
-      updatedAt:
-          updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
+      updatedAt: updatedAt != null ? DateTime.tryParse(updatedAt!) : null,
       isCorporate: isCorporate,
       corporateName: corporateName,
     );

@@ -1,6 +1,6 @@
-import '../../domain/entities/vehicle.dart';
-import '../../domain/repositories/vehicle_repository.dart';
-import '../data_sources/remote/vehicle_api.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/repositories/vehicle_repository.dart';
+import 'package:airportshuttle4less/data/data_sources/remote/vehicle_api.dart';
 
 /// Vehicle repository implementation
 /// No vehicle endpoints are documented in the API documentation

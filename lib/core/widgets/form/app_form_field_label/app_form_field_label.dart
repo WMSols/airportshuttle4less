@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
@@ -29,7 +29,7 @@ class AppFormFieldLabel extends StatelessWidget {
               style: AppTextStyles.bodyText(context).copyWith(
                 fontWeight: FontWeight.w500,
                 fontFamily: AppFonts.primaryFont,
-                color: AppColors.black,
+                color: AppColors.primary,
               ),
             ),
             if (required)

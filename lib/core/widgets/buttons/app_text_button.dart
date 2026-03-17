@@ -1,10 +1,10 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
+import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
-import 'package:airportshuttle4less/core/widgets/buttons/app_button.dart';
 
 /// Reusable text button with optional leading or trailing icon.
 class AppTextButton extends StatelessWidget {
@@ -14,20 +14,25 @@ class AppTextButton extends StatelessWidget {
     this.onPressed,
     this.icon,
     this.iconPosition = IconPosition.left,
-    this.style,
+    this.textColor,
   });
 
   final String label;
   final VoidCallback? onPressed;
   final IconData? icon;
   final IconPosition iconPosition;
-  final TextStyle? style;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
-    final textStyle =
-        style ??
-        AppTextStyles.bodyText(context).copyWith(color: AppColors.primary);
+    final defaultStyle = AppTextStyles.bodyText(context).copyWith(
+      color: AppColors.primary,
+      fontWeight: FontWeight.w500,
+      fontFamily: AppFonts.primaryFont,
+    );
+    final textStyle = textColor != null
+        ? defaultStyle.copyWith(color: textColor)
+        : defaultStyle;
     final content = Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -60,3 +65,5 @@ class AppTextButton extends StatelessWidget {
     );
   }
 }
+
+enum IconPosition { left, right }

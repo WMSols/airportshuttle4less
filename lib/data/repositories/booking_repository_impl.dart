@@ -1,9 +1,9 @@
-import '../../domain/entities/booking.dart';
-import '../../domain/entities/location.dart';
-import '../../domain/entities/vehicle.dart';
-import '../../domain/repositories/booking_repository.dart';
-import '../data_sources/remote/booking_api.dart';
-import '../models/booking/booking_request.dart';
+import 'package:airportshuttle4less/domain/entities/booking.dart';
+import 'package:airportshuttle4less/domain/entities/location.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/repositories/booking_repository.dart';
+import 'package:airportshuttle4less/data/data_sources/remote/booking_api.dart';
+import 'package:airportshuttle4less/data/models/booking/booking_request.dart';
 
 /// Booking repository implementation
 /// Only includes documented API endpoints
@@ -128,7 +128,9 @@ class BookingRepositoryImpl implements BookingRepository {
 
   @override
   Future<Booking?> getBookingByReference(
-      String referenceNumber, String email) async {
+    String referenceNumber,
+    String email,
+  ) async {
     return null;
   }
 }

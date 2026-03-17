@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
-import '../../../core/constants/api_constants.dart';
-import '../../models/booking/booking_request.dart';
-import '../../models/booking/booking_response.dart';
+
+import 'package:airportshuttle4less/core/constants/api_constants.dart';
+import 'package:airportshuttle4less/data/models/booking/add_reservation_request.dart';
+import 'package:airportshuttle4less/data/models/booking/booking_request.dart';
+import 'package:airportshuttle4less/data/models/booking/booking_response.dart';
 
 /// Booking API for reservation endpoints
 class BookingApi {
@@ -9,7 +11,23 @@ class BookingApi {
 
   BookingApi(this._dio);
 
-  /// Create new booking
+  /// Add reservation (ASP.NET API: Reservation object + IsEmail).
+  /// Returns map with retCode and ReservationId.
+  Future<Map<String, dynamic>> addReservation(
+    AddReservationRequest request, {
+    bool isEmail = true,
+  }) async {
+    final response = await _dio.post(
+      ApiConstants.addReservation,
+      data: {
+        'Reservation': request.toJson(),
+        'IsEmail': isEmail,
+      },
+    );
+    return response.data as Map<String, dynamic>;
+  }
+
+  /// Create new booking (legacy request shape; prefer addReservation for new flow).
   Future<BookingResponse> createBooking(BookingRequest request) async {
     final response = await _dio.post(
       ApiConstants.addReservation,
@@ -37,13 +55,12 @@ class BookingApi {
   }
 
   /// Add corporate reservation
-  Future<BookingResponse> addCorporateReservation(BookingRequest request) async {
+  Future<BookingResponse> addCorporateReservation(
+    BookingRequest request,
+  ) async {
     final response = await _dio.post(
       ApiConstants.addCorporateReservation,
-      data: {
-        ...request.toJson(),
-        'IsCorp': true,
-      },
+      data: {...request.toJson(), 'IsCorp': true},
     );
     return BookingResponse.fromJson(response.data);
   }

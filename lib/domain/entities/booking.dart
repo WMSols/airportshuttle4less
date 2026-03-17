@@ -3,21 +3,10 @@ import 'vehicle.dart';
 import 'user.dart';
 
 /// Booking status enum
-enum BookingStatus {
-  pending,
-  confirmed,
-  inProgress,
-  completed,
-  cancelled,
-}
+enum BookingStatus { pending, confirmed, inProgress, completed, cancelled }
 
 /// Payment status enum
-enum PaymentStatus {
-  pending,
-  paid,
-  failed,
-  refunded,
-}
+enum PaymentStatus { pending, paid, failed, refunded }
 
 /// Booking entity representing a reservation
 class Booking {
@@ -84,7 +73,8 @@ class Booking {
       status == BookingStatus.pending || status == BookingStatus.confirmed;
 
   bool get canModify =>
-      status == BookingStatus.pending && DateTime.now().isBefore(pickupDateTime);
+      status == BookingStatus.pending &&
+      DateTime.now().isBefore(pickupDateTime);
 
   String get statusDisplayName {
     switch (status) {

@@ -1,6 +1,6 @@
-import '../entities/booking.dart';
-import '../entities/vehicle.dart';
-import '../entities/location.dart';
+import 'package:airportshuttle4less/domain/entities/booking.dart';
+import 'package:airportshuttle4less/domain/entities/vehicle.dart';
+import 'package:airportshuttle4less/domain/entities/location.dart';
 
 /// Search parameters for finding rides
 class RideSearchParams {

@@ -1,4 +1,4 @@
-import '../repositories/payment_repository.dart';
+import 'package:airportshuttle4less/domain/repositories/payment_repository.dart';
 
 /// Payment use case for payment operations
 class PaymentUseCase {
@@ -63,10 +63,7 @@ class PaymentUseCase {
     required String bookingId,
     required String reason,
   }) {
-    return _repository.requestRefund(
-      bookingId: bookingId,
-      reason: reason,
-    );
+    return _repository.requestRefund(bookingId: bookingId, reason: reason);
   }
 
   /// Get payment details for booking
