@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
@@ -35,7 +36,7 @@ class SuccessScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  Icons.check_circle,
+                  Iconsax.tick_circle,
                   color: AppColors.success,
                   size: AppResponsive.scaleSize(context, 60),
                 ),
@@ -45,9 +46,9 @@ class SuccessScreen extends StatelessWidget {
               // Success Title
               Text(
                 AppTexts.bookingConfirmed,
-                style: AppTextStyles.headline(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.headline(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               AppSpacing.vertical(context, 0.015),
@@ -63,9 +64,9 @@ class SuccessScreen extends StatelessWidget {
                   children: [
                     Text(
                       AppTexts.bookingReference,
-                      style: AppTextStyles.hintText(context).copyWith(
-                        color: AppColors.grey,
-                      ),
+                      style: AppTextStyles.hintText(
+                        context,
+                      ).copyWith(color: AppColors.grey),
                     ),
                     AppSpacing.vertical(context, 0.01),
                     Text(
@@ -83,9 +84,9 @@ class SuccessScreen extends StatelessWidget {
               // Details
               Text(
                 'Your booking has been confirmed. You will receive a confirmation email shortly.',
-                style: AppTextStyles.hintText(context).copyWith(
-                  color: AppColors.grey,
-                ),
+                style: AppTextStyles.hintText(
+                  context,
+                ).copyWith(color: AppColors.grey),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -126,9 +127,9 @@ class SuccessScreen extends StatelessWidget {
                   ),
                   child: Text(
                     AppTexts.bookAnotherRide,
-                    style: AppTextStyles.buttonText(context).copyWith(
-                      color: AppColors.primary,
-                    ),
+                    style: AppTextStyles.buttonText(
+                      context,
+                    ).copyWith(color: AppColors.primary),
                   ),
                 ),
               ),

@@ -1,12 +1,9 @@
-import '../entities/user.dart';
+import 'package:airportshuttle4less/domain/entities/user.dart';
 
 /// Auth repository interface defining authentication operations
 abstract class AuthRepository {
   /// Login with email/phone and password
-  Future<User> login({
-    required String email,
-    required String password,
-  });
+  Future<User> login({required String email, required String password});
 
   /// Register a new user account
   Future<User> register({
@@ -32,6 +29,18 @@ abstract class AuthRepository {
 
   /// Get remember me preference
   Future<bool> getRememberMe();
+
+  /// Get saved email for remember me (pre-fill)
+  Future<String?> getSavedEmail();
+
+  /// Get saved password for remember me (pre-fill)
+  Future<String?> getSavedPassword();
+
+  /// Save email for remember me
+  Future<void> saveSavedEmail(String email);
+
+  /// Save password for remember me
+  Future<void> saveSavedPassword(String password);
 
   /// Save onboarding completed status
   Future<void> saveOnboardingCompleted(bool value);

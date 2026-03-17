@@ -49,9 +49,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               // Passenger Details Section
               Text(
                 AppTexts.passengerDetails,
-                style: AppTextStyles.heading(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.heading(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
               ),
               AppSpacing.vertical(context, 0.015),
 
@@ -87,9 +87,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
               // Promo Code Section
               Text(
                 AppTexts.promoCode,
-                style: AppTextStyles.heading(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.heading(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
               ),
               AppSpacing.vertical(context, 0.015),
 
@@ -103,7 +103,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                         border: OutlineInputBorder(borderRadius: borderRadius),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: borderRadius,
-                          borderSide: const BorderSide(color: AppColors.primary),
+                          borderSide: const BorderSide(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -143,10 +145,7 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                     AppSpacing.vertical(context, 0.01),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(AppTexts.discount),
-                        Text('-\$0.00'),
-                      ],
+                      children: [Text(AppTexts.discount), Text('-\$0.00')],
                     ),
                     const Divider(),
                     Row(
@@ -154,9 +153,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                       children: [
                         Text(
                           AppTexts.totalPrice,
-                          style: AppTextStyles.bodyText(context).copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTextStyles.bodyText(
+                            context,
+                          ).copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           '\$75.00',

@@ -1,5 +1,5 @@
-import '../entities/user.dart';
-import '../repositories/auth_repository.dart';
+import 'package:airportshuttle4less/domain/entities/user.dart';
+import 'package:airportshuttle4less/domain/repositories/auth_repository.dart';
 
 /// Auth use case for authentication operations
 class AuthUseCase {
@@ -8,10 +8,7 @@ class AuthUseCase {
   AuthUseCase(this._repository);
 
   /// Login with email and password
-  Future<User> login({
-    required String email,
-    required String password,
-  }) {
+  Future<User> login({required String email, required String password}) {
     return _repository.login(email: email, password: password);
   }
 
@@ -57,6 +54,26 @@ class AuthUseCase {
   /// Get remember me preference
   Future<bool> getRememberMe() {
     return _repository.getRememberMe();
+  }
+
+  /// Get saved email for remember me (pre-fill)
+  Future<String?> getSavedEmail() {
+    return _repository.getSavedEmail();
+  }
+
+  /// Get saved password for remember me (pre-fill)
+  Future<String?> getSavedPassword() {
+    return _repository.getSavedPassword();
+  }
+
+  /// Save email for remember me
+  Future<void> saveSavedEmail(String email) {
+    return _repository.saveSavedEmail(email);
+  }
+
+  /// Save password for remember me
+  Future<void> saveSavedPassword(String password) {
+    return _repository.saveSavedPassword(password);
   }
 
   /// Save onboarding completed status

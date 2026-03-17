@@ -1,12 +1,20 @@
+import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
-import '../../../core/utils/app_colors/app_colors.dart';
-import '../../../core/utils/app_responsive/app_responsive.dart';
-import '../../../core/utils/app_spacing/app_spacing.dart';
-import '../../../core/utils/app_styles/app_text_styles.dart';
-import '../../../core/widgets/buttons/app_button.dart';
-import '../../../core/widgets/form/app_text_field/app_text_field.dart';
+import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
+import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
+import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
+import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
+import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/app_validators/app_validators.dart';
+import 'package:airportshuttle4less/core/widgets/buttons/app_button.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_custom_app_bar.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
+import 'package:airportshuttle4less/core/widgets/form/app_text_field/app_text_field.dart';
+import 'package:airportshuttle4less/core/widgets/feedback/app_toast.dart';
+import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
 
 /// Forgot password screen
 class ForgotPasswordScreen extends StatefulWidget {
@@ -17,101 +25,100 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  final _emailController = TextEditingController();
+  late final TextEditingController _emailController;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  String? _validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+    final args = Get.arguments;
+    if (args is Map && args['email'] != null) {
+      _emailController.text = args['email'].toString();
     }
-    if (!GetUtils.isEmail(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isLoading = true);
-
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() => _isLoading = false);
-
-    Get.snackbar(
-      'Success',
-      'Password reset link sent to your email',
-      snackPosition: SnackPosition.BOTTOM,
-    );
-    Get.back();
+    try {
+      final authUseCase = Get.find<AuthUseCase>();
+      await authUseCase.forgotPassword(_emailController.text.trim());
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      AppToast.showSuccess(AppTexts.success, AppTexts.resetLinkSent);
+      Get.back();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+      AppToast.showError(AppTexts.error, AppTexts.couldNotSendResetLink);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: AppColors.black,
-            size: AppResponsive.iconSize(context),
-          ),
-          onPressed: () => Get.back(),
+    return Stack(
+      children: [
+        // Fixed full-screen background (does not move with keyboard)
+        Positioned.fill(
+          child: AppCustomBackground(child: const SizedBox.shrink()),
         ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: AppSpacing.padding(context, multiplier: 1.3),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Icon(
-                  Icons.lock_reset,
-                  size: AppResponsive.scaleSize(context, 80),
-                  color: AppColors.primary,
+        // Content can move with keyboard (form)
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppCustomAppBar(title: '', isBack: true),
+          body: SafeArea(
+            top: false,
+            child: SingleChildScrollView(
+              padding: AppSpacing.padding(context, multiplier: 1.3),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      AppTexts.appName,
+                      style: AppTextStyles.bodyText(
+                        context,
+                      ).copyWith(fontFamily: AppFonts.tertiaryFont),
+                    ),
+                    Text(
+                      AppTexts.forgotPasswordTitle,
+                      style: AppTextStyles.headline(
+                        context,
+                      ).copyWith(fontFamily: AppFonts.tertiaryFont),
+                    ),
+                    AppSpacing.vertical(context, 0.01),
+                    Text(
+                      AppTexts.forgotPasswordSubtitle,
+                      style: AppTextStyles.hintText(
+                        context,
+                      ).copyWith(color: AppColors.black),
+                    ),
+                    AppSpacing.vertical(context, 0.03),
+                    AppTextField(
+                      controller: _emailController,
+                      label: AppTexts.email,
+                      hint: AppTexts.enterEmail,
+                      prefixIcon: Iconsax.sms,
+                      validator: AppValidators.validateEmail,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    AppSpacing.vertical(context, 0.03),
+                    AppButton(
+                      label: AppTexts.resetPassword,
+                      onPressed: _submit,
+                      isLoading: _isLoading,
+                    ),
+                  ],
                 ),
-                AppSpacing.vertical(context, 0.02),
-                Text(
-                  'Forgot Password',
-                  style: AppTextStyles.headline(context).copyWith(
-                    color: AppColors.black,
-                  ),
-                ),
-                AppSpacing.vertical(context, 0.01),
-                Text(
-                  'Enter your email to reset your password',
-                  style: AppTextStyles.bodyText(context).copyWith(
-                    color: AppColors.grey,
-                  ),
-                ),
-                AppSpacing.vertical(context, 0.06),
-                AppTextField(
-                  controller: _emailController,
-                  label: 'Email',
-                  hint: 'Enter your email',
-                  prefixIcon: Icons.email_outlined,
-                  validator: _validateEmail,
-                  keyboardType: TextInputType.emailAddress,
-                ),
-                AppSpacing.vertical(context, 0.03),
-                AppButton(
-                  label: 'Reset Password',
-                  onPressed: _submit,
-                  isLoading: _isLoading,
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 

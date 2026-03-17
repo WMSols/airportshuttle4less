@@ -1,24 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../domain/use_cases/auth_use_case.dart';
-import '../../routes/app_routes.dart';
+import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/app_validators/app_validators.dart';
+import 'package:airportshuttle4less/core/widgets/feedback/app_toast.dart';
+import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
+import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 
-/// Controller for registration screen
+/// Controller for registration screen.
+/// TextEditingControllers are owned by [RegisterScreen] and injected via [setTextControllers].
 class RegisterController extends GetxController {
   final AuthUseCase _authUseCase = Get.find<AuthUseCase>();
 
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  late TextEditingController nameController;
+  late TextEditingController emailController;
+  late TextEditingController phoneController;
+  late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
+  late TextEditingController corporateNameController;
   final formKey = GlobalKey<FormState>();
 
   final isLoading = false.obs;
   final isPasswordVisible = false.obs;
   final isCorporate = false.obs;
-  final corporateNameController = TextEditingController();
+
+  /// Called by [RegisterScreen] so the controller uses widget-owned controllers.
+  /// Must be called before the form is built.
+  void setTextControllers({
+    required TextEditingController name,
+    required TextEditingController email,
+    required TextEditingController phone,
+    required TextEditingController password,
+    required TextEditingController confirmPassword,
+    required TextEditingController corporateName,
+  }) {
+    nameController = name;
+    emailController = email;
+    phoneController = phone;
+    passwordController = password;
+    confirmPasswordController = confirmPassword;
+    corporateNameController = corporateName;
+  }
 
   void togglePasswordVisibility() {
     isPasswordVisible.value = !isPasswordVisible.value;
@@ -28,49 +50,18 @@ class RegisterController extends GetxController {
     isCorporate.value = !isCorporate.value;
   }
 
-  String? validateName(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your name';
-    }
-    return null;
-  }
+  String? validateName(String? value) =>
+      AppValidators.validateRequiredName(value);
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (!GetUtils.isEmail(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
+  String? validateEmail(String? value) => AppValidators.validateEmail(value);
 
-  String? validatePhone(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your phone number';
-    }
-    return null;
-  }
+  String? validatePhone(String? value) => AppValidators.validatePhone(value);
 
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter a password';
-    }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    return null;
-  }
+  String? validatePassword(String? value) =>
+      AppValidators.validatePassword(value);
 
-  String? validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please confirm your password';
-    }
-    if (value != passwordController.text) {
-      return 'Passwords do not match';
-    }
-    return null;
-  }
+  String? validateConfirmPassword(String? value) =>
+      AppValidators.validateConfirmPassword(value, passwordController.text);
 
   Future<void> register() async {
     if (!formKey.currentState!.validate()) return;
@@ -83,21 +74,17 @@ class RegisterController extends GetxController {
         phone: phoneController.text.trim(),
         password: passwordController.text,
         isCorporate: isCorporate.value,
-        corporateName: isCorporate.value ? corporateNameController.text.trim() : null,
+        corporateName: isCorporate.value
+            ? corporateNameController.text.trim()
+            : null,
       );
-      
-      Get.snackbar(
-        'Success',
-        'Registration successful! Please login.',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+
       Get.offAllNamed(AppRoutes.login);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        AppToast.showSuccess(AppTexts.success, AppTexts.registrationSuccess);
+      });
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Registration failed. Please try again.',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      AppToast.showError(AppTexts.error, AppTexts.registrationFailed);
     } finally {
       isLoading.value = false;
     }
@@ -107,14 +94,7 @@ class RegisterController extends GetxController {
     Get.back();
   }
 
+  /// TextEditingControllers are owned and disposed by [RegisterScreen].
   @override
-  void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    phoneController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    corporateNameController.dispose();
-    super.onClose();
-  }
+  void onClose() => super.onClose();
 }
