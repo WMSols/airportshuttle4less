@@ -7,13 +7,15 @@ import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 class OnboardingController extends GetxController {
   OnboardingController(this._authUseCase);
 
+  static const int pageCount = 3;
+
   final AuthUseCase _authUseCase;
 
   final pageController = PageController(initialPage: 0);
   final currentPage = 0.obs;
 
   Future<void> nextPage() async {
-    if (currentPage.value < 2) {
+    if (currentPage.value < pageCount - 1) {
       await pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,

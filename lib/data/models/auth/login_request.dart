@@ -3,15 +3,10 @@ class LoginRequest {
   final String email;
   final String password;
 
-  const LoginRequest({
-    required this.email,
-    required this.password,
-  });
+  const LoginRequest({required this.email, required this.password});
 
+  /// API expects PascalCase: { "Email": "...", "Password": "..." }
   Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'password': password,
-    };
+    return {'Email': email, 'Password': password};
   }
 }

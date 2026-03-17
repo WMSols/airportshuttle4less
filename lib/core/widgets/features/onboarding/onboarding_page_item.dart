@@ -26,10 +26,6 @@ class OnboardingPageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      page.image,
-      fit: BoxFit.contain,
-      width: double.infinity,
-    );
+    return Image.asset(page.image, fit: BoxFit.contain, width: double.infinity);
   }
 }

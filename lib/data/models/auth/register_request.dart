@@ -19,7 +19,7 @@ class RegisterRequest {
         'LastName': lastName,
         'Email': email,
         'Password': password,
-      }
+      },
     };
   }
 }

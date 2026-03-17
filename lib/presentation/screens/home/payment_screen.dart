@@ -51,9 +51,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
               // Payment Method Section
               Text(
                 AppTexts.paymentMethod,
-                style: AppTextStyles.heading(context).copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.heading(
+                  context,
+                ).copyWith(fontWeight: FontWeight.bold),
               ),
               AppSpacing.vertical(context, 0.015),
 
@@ -85,7 +85,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         border: OutlineInputBorder(borderRadius: borderRadius),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: borderRadius,
-                          borderSide: const BorderSide(color: AppColors.primary),
+                          borderSide: const BorderSide(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -101,7 +103,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         border: OutlineInputBorder(borderRadius: borderRadius),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: borderRadius,
-                          borderSide: const BorderSide(color: AppColors.primary),
+                          borderSide: const BorderSide(
+                            color: AppColors.primary,
+                          ),
                         ),
                       ),
                     ),
@@ -136,9 +140,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   children: [
                     Text(
                       AppTexts.totalPrice,
-                      style: AppTextStyles.heading(context).copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.heading(
+                        context,
+                      ).copyWith(fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '\$75.00',

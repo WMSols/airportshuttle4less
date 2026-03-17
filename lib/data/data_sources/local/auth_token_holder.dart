@@ -1,7 +1,7 @@
 /// In-memory token holder for JWT authentication
 class AuthTokenHolder {
   static AuthTokenHolder? _instance;
-  
+
   String? _accessToken;
   String? _refreshToken;
   DateTime? _tokenExpiry;

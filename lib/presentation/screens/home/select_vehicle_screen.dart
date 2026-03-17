@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
@@ -77,7 +78,9 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
                 final isSelected = _selectedVehicleId == vehicle.id;
 
                 return Padding(
-                  padding: EdgeInsets.only(bottom: AppSpacing.verticalValue(context, 0.015)),
+                  padding: EdgeInsets.only(
+                    bottom: AppSpacing.verticalValue(context, 0.015),
+                  ),
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
@@ -109,9 +112,12 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
                               borderRadius: borderRadius,
                             ),
                             child: Icon(
-                              Icons.directions_car,
+                              Iconsax.car,
                               color: AppColors.primary,
-                              size: AppResponsive.iconSize(context, factor: 1.5),
+                              size: AppResponsive.iconSize(
+                                context,
+                                factor: 1.5,
+                              ),
                             ),
                           ),
                           AppSpacing.horizontal(context, 0.02),
@@ -122,24 +128,25 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
                               children: [
                                 Text(
                                   vehicle.name,
-                                  style: AppTextStyles.bodyText(context).copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: AppTextStyles.bodyText(
+                                    context,
+                                  ).copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 AppSpacing.vertical(context, 0.005),
                                 Text(
                                   vehicle.description ?? '',
-                                  style: AppTextStyles.hintText(context).copyWith(
-                                    color: AppColors.grey,
-                                  ),
+                                  style: AppTextStyles.hintText(
+                                    context,
+                                  ).copyWith(color: AppColors.grey),
                                 ),
                                 AppSpacing.vertical(context, 0.005),
                                 Text(
                                   '\$${vehicle.pricePerPerson.toStringAsFixed(2)}/person',
-                                  style: AppTextStyles.hintText(context).copyWith(
-                                    color: AppColors.primary,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: AppTextStyles.hintText(context)
+                                      .copyWith(
+                                        color: AppColors.primary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                 ),
                               ],
                             ),

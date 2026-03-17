@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../domain/use_cases/auth_use_case.dart';
-import '../../routes/app_routes.dart';
+import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/app_validators/app_validators.dart';
+import 'package:airportshuttle4less/core/widgets/feedback/app_toast.dart';
+import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
+import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
 
-/// Controller for login screen
+/// Controller for login screen.
+/// TextEditingControllers are owned by [LoginScreen] and injected via [setTextControllers].
 class LoginController extends GetxController {
   final AuthUseCase _authUseCase = Get.find<AuthUseCase>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
   final formKey = GlobalKey<FormState>();
 
   final isLoading = false.obs;
   final rememberMe = false.obs;
   final isPasswordVisible = false.obs;
+
+  /// Called by [LoginScreen] so the controller uses widget-owned controllers.
+  /// Must be called before the form is built.
+  void setTextControllers({
+    required TextEditingController email,
+    required TextEditingController password,
+  }) {
+    emailController = email;
+    passwordController = password;
+  }
 
   @override
   void onInit() {
@@ -23,9 +37,17 @@ class LoginController extends GetxController {
   }
 
   Future<void> _loadSavedCredentials() async {
-    final savedEmail = await _authUseCase.getRememberMe();
-    if (savedEmail) {
-      // Load email from secure storage
+    final shouldRemember = await _authUseCase.getRememberMe();
+    if (shouldRemember) {
+      rememberMe.value = true;
+      final email = await _authUseCase.getSavedEmail();
+      final password = await _authUseCase.getSavedPassword();
+      if (email != null && email.isNotEmpty) {
+        emailController.text = email;
+      }
+      if (password != null && password.isNotEmpty) {
+        passwordController.text = password;
+      }
     }
   }
 
@@ -37,25 +59,10 @@ class LoginController extends GetxController {
     rememberMe.value = !rememberMe.value;
   }
 
-  String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (!GetUtils.isEmail(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
+  String? validateEmail(String? value) => AppValidators.validateEmail(value);
 
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    return null;
-  }
+  String? validatePassword(String? value) =>
+      AppValidators.validatePassword(value);
 
   Future<void> login() async {
     if (!formKey.currentState!.validate()) return;
@@ -66,18 +73,18 @@ class LoginController extends GetxController {
         email: emailController.text.trim(),
         password: passwordController.text,
       );
-      
+
       if (rememberMe.value) {
         await _authUseCase.rememberMe(true);
+        await _authUseCase.saveSavedEmail(emailController.text.trim());
+        await _authUseCase.saveSavedPassword(passwordController.text);
+      } else {
+        await _authUseCase.rememberMe(false);
       }
-      
+
       Get.offAllNamed(AppRoutes.main);
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Invalid email or password',
-        snackPosition: SnackPosition.BOTTOM,
-      );
+      AppToast.showError(AppTexts.error, AppTexts.invalidCredentials);
     } finally {
       isLoading.value = false;
     }
@@ -91,10 +98,7 @@ class LoginController extends GetxController {
     Get.toNamed(AppRoutes.forgotPassword);
   }
 
+  /// TextEditingControllers are owned and disposed by [LoginScreen].
   @override
-  void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.onClose();
-  }
+  void onClose() => super.onClose();
 }
