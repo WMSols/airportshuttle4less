@@ -81,7 +81,7 @@ class BookingDetailScreen extends StatelessWidget {
 
             // Trip Details
             Text(
-              'Trip Details',
+              AppTexts.tripDetails,
               style: AppTextStyles.heading(
                 context,
               ).copyWith(fontWeight: FontWeight.bold),
@@ -149,7 +149,7 @@ class BookingDetailScreen extends StatelessWidget {
 
             // Price Details
             Text(
-              'Price Details',
+              AppTexts.priceDetails,
               style: AppTextStyles.heading(
                 context,
               ).copyWith(fontWeight: FontWeight.bold),
@@ -168,7 +168,7 @@ class BookingDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Price per person',
+                        AppTexts.pricePerPerson,
                         style: AppTextStyles.bodyText(context),
                       ),
                       Text('\$25.00', style: AppTextStyles.bodyText(context)),
@@ -179,7 +179,7 @@ class BookingDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Passengers',
+                        AppTexts.passengers,
                         style: AppTextStyles.bodyText(context),
                       ),
                       Text('3', style: AppTextStyles.bodyText(context)),
@@ -190,7 +190,7 @@ class BookingDetailScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Total',
+                        AppTexts.total,
                         style: AppTextStyles.bodyText(
                           context,
                         ).copyWith(fontWeight: FontWeight.bold),

@@ -24,6 +24,8 @@ class AppDateTimePicker {
     DateTime? initial,
     DateTime? minDate,
     DateTime? maxDate,
+    bool showDate = true,
+    bool showTime = true,
   }) async {
     final picked = await showModalBottomSheet<DateTime>(
       context: context,
@@ -34,6 +36,8 @@ class AppDateTimePicker {
         initial: initial ?? DateTime.now(),
         minDate: minDate,
         maxDate: maxDate,
+        showDate: showDate,
+        showTime: showTime,
       ),
     );
     return picked;
@@ -46,12 +50,16 @@ class _AppDateTimePickerSheet extends StatefulWidget {
     required this.initial,
     this.minDate,
     this.maxDate,
+    this.showDate = true,
+    this.showTime = true,
   });
 
   final String title;
   final DateTime initial;
   final DateTime? minDate;
   final DateTime? maxDate;
+  final bool showDate;
+  final bool showTime;
 
   @override
   State<_AppDateTimePickerSheet> createState() =>
@@ -217,157 +225,159 @@ class _AppDateTimePickerSheetState extends State<_AppDateTimePickerSheet> {
               height: AppResponsive.scaleSize(context, 220),
               child: Row(
                 children: [
-                  Expanded(
-                    child: ListWheelScrollView.useDelegate(
-                      controller: _dateController,
-                      itemExtent: AppResponsive.scaleSize(context, 44),
-                      diameterRatio: 1.2,
-                      perspective: 0.003,
-                      physics: const FixedExtentScrollPhysics(),
-                      onSelectedItemChanged: _onDateIndexChanged,
-                      childDelegate: ListWheelChildBuilderDelegate(
-                        childCount: _dates.length,
-                        builder: (context, index) {
-                          final d = _dates[index];
-                          final isSelected =
-                              d.year == _selected.year &&
-                              d.month == _selected.month &&
-                              d.day == _selected.day;
-                          return Center(
-                            child: Text(
-                              AppFormatter.shortDate(d),
-                              style: AppTextStyles.bodyText(context).copyWith(
-                                color: isSelected
-                                    ? AppColors.primary
-                                    : AppColors.grey,
-                                fontWeight: isSelected
-                                    ? FontWeight.w600
-                                    : FontWeight.normal,
+                  if (widget.showDate)
+                    Expanded(
+                      child: ListWheelScrollView.useDelegate(
+                        controller: _dateController,
+                        itemExtent: AppResponsive.scaleSize(context, 44),
+                        diameterRatio: 1.2,
+                        perspective: 0.003,
+                        physics: const FixedExtentScrollPhysics(),
+                        onSelectedItemChanged: _onDateIndexChanged,
+                        childDelegate: ListWheelChildBuilderDelegate(
+                          childCount: _dates.length,
+                          builder: (context, index) {
+                            final d = _dates[index];
+                            final isSelected =
+                                d.year == _selected.year &&
+                                d.month == _selected.month &&
+                                d.day == _selected.day;
+                            return Center(
+                              child: Text(
+                                AppFormatter.shortDate(d),
+                                style: AppTextStyles.bodyText(context).copyWith(
+                                  color: isSelected
+                                      ? AppColors.primary
+                                      : AppColors.grey,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: AppResponsive.scaleSize(context, 50),
-                          child: ListWheelScrollView.useDelegate(
-                            controller: _hourController,
-                            itemExtent: AppResponsive.scaleSize(context, 44),
-                            diameterRatio: 1.2,
-                            perspective: 0.003,
-                            physics: const FixedExtentScrollPhysics(),
-                            onSelectedItemChanged: _onHourChanged,
-                            childDelegate: ListWheelChildBuilderDelegate(
-                              childCount: _hourCount12,
-                              builder: (context, index) {
-                                final hourLabel = index == 0
-                                    ? '12'
-                                    : index.toString();
-                                final isSelected =
-                                    index ==
-                                    _hour24ToDisplayIndex(_selected.hour);
-                                return Center(
-                                  child: Text(
-                                    hourLabel,
-                                    style: AppTextStyles.bodyText(context)
-                                        .copyWith(
-                                          color: isSelected
-                                              ? AppColors.primary
-                                              : AppColors.grey,
-                                          fontWeight: isSelected
-                                              ? FontWeight.w600
-                                              : FontWeight.normal,
-                                        ),
-                                  ),
-                                );
-                              },
+                  if (widget.showTime)
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: AppResponsive.scaleSize(context, 50),
+                            child: ListWheelScrollView.useDelegate(
+                              controller: _hourController,
+                              itemExtent: AppResponsive.scaleSize(context, 44),
+                              diameterRatio: 1.2,
+                              perspective: 0.003,
+                              physics: const FixedExtentScrollPhysics(),
+                              onSelectedItemChanged: _onHourChanged,
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: _hourCount12,
+                                builder: (context, index) {
+                                  final hourLabel = index == 0
+                                      ? '12'
+                                      : index.toString();
+                                  final isSelected =
+                                      index ==
+                                      _hour24ToDisplayIndex(_selected.hour);
+                                  return Center(
+                                    child: Text(
+                                      hourLabel,
+                                      style: AppTextStyles.bodyText(context)
+                                          .copyWith(
+                                            color: isSelected
+                                                ? AppColors.primary
+                                                : AppColors.grey,
+                                            fontWeight: isSelected
+                                                ? FontWeight.w600
+                                                : FontWeight.normal,
+                                          ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          ':',
-                          style: AppTextStyles.bodyText(context).copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize:
-                                AppResponsive.screenWidth(context) * 0.053,
-                          ),
-                        ),
-                        SizedBox(
-                          width: AppResponsive.scaleSize(context, 70),
-                          child: ListWheelScrollView.useDelegate(
-                            controller: _minuteController,
-                            itemExtent: AppResponsive.scaleSize(context, 44),
-                            diameterRatio: 1.2,
-                            perspective: 0.003,
-                            physics: const FixedExtentScrollPhysics(),
-                            onSelectedItemChanged: _onMinuteChanged,
-                            childDelegate: ListWheelChildBuilderDelegate(
-                              childCount: _minuteCount,
-                              builder: (context, index) {
-                                final isSelected = index == _selected.minute;
-                                return Center(
-                                  child: Text(
-                                    index.toString().padLeft(2, '0'),
-                                    style: AppTextStyles.bodyText(context)
-                                        .copyWith(
-                                          color: isSelected
-                                              ? AppColors.primary
-                                              : AppColors.grey,
-                                          fontWeight: isSelected
-                                              ? FontWeight.w600
-                                              : FontWeight.normal,
-                                        ),
-                                  ),
-                                );
-                              },
+                          Text(
+                            ':',
+                            style: AppTextStyles.bodyText(context).copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize:
+                                  AppResponsive.screenWidth(context) * 0.053,
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          width: AppResponsive.scaleSize(context, 56),
-                          child: ListWheelScrollView.useDelegate(
-                            controller: _periodController,
-                            itemExtent: AppResponsive.scaleSize(context, 44),
-                            diameterRatio: 1.2,
-                            perspective: 0.003,
-                            physics: const FixedExtentScrollPhysics(),
-                            onSelectedItemChanged: _onPeriodChanged,
-                            childDelegate: ListWheelChildBuilderDelegate(
-                              childCount: _periodCount,
-                              builder: (context, index) {
-                                final periodLabel = index == 0
-                                    ? AppTexts.periodAm
-                                    : AppTexts.periodPm;
-                                final isSelected =
-                                    (index == 0 && _selected.hour < 12) ||
-                                    (index == 1 && _selected.hour >= 12);
-                                return Center(
-                                  child: Text(
-                                    periodLabel,
-                                    style: AppTextStyles.bodyText(context)
-                                        .copyWith(
-                                          color: isSelected
-                                              ? AppColors.primary
-                                              : AppColors.grey,
-                                          fontWeight: isSelected
-                                              ? FontWeight.w600
-                                              : FontWeight.normal,
-                                        ),
-                                  ),
-                                );
-                              },
+                          SizedBox(
+                            width: AppResponsive.scaleSize(context, 70),
+                            child: ListWheelScrollView.useDelegate(
+                              controller: _minuteController,
+                              itemExtent: AppResponsive.scaleSize(context, 44),
+                              diameterRatio: 1.2,
+                              perspective: 0.003,
+                              physics: const FixedExtentScrollPhysics(),
+                              onSelectedItemChanged: _onMinuteChanged,
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: _minuteCount,
+                                builder: (context, index) {
+                                  final isSelected = index == _selected.minute;
+                                  return Center(
+                                    child: Text(
+                                      index.toString().padLeft(2, '0'),
+                                      style: AppTextStyles.bodyText(context)
+                                          .copyWith(
+                                            color: isSelected
+                                                ? AppColors.primary
+                                                : AppColors.grey,
+                                            fontWeight: isSelected
+                                                ? FontWeight.w600
+                                                : FontWeight.normal,
+                                          ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            width: AppResponsive.scaleSize(context, 56),
+                            child: ListWheelScrollView.useDelegate(
+                              controller: _periodController,
+                              itemExtent: AppResponsive.scaleSize(context, 44),
+                              diameterRatio: 1.2,
+                              perspective: 0.003,
+                              physics: const FixedExtentScrollPhysics(),
+                              onSelectedItemChanged: _onPeriodChanged,
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: _periodCount,
+                                builder: (context, index) {
+                                  final periodLabel = index == 0
+                                      ? AppTexts.periodAm
+                                      : AppTexts.periodPm;
+                                  final isSelected =
+                                      (index == 0 && _selected.hour < 12) ||
+                                      (index == 1 && _selected.hour >= 12);
+                                  return Center(
+                                    child: Text(
+                                      periodLabel,
+                                      style: AppTextStyles.bodyText(context)
+                                          .copyWith(
+                                            color: isSelected
+                                                ? AppColors.primary
+                                                : AppColors.grey,
+                                            fontWeight: isSelected
+                                                ? FontWeight.w600
+                                                : FontWeight.normal,
+                                          ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

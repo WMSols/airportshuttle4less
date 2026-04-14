@@ -6,8 +6,8 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/widgets/form/app_checkbox/app_checkbox.dart';
 import 'package:airportshuttle4less/core/widgets/form/app_text_field/app_text_field.dart';
-import 'package:airportshuttle4less/core/widgets/form/app_remember_me/app_remember_me.dart';
 import 'package:airportshuttle4less/presentation/controllers/auth/login_controller.dart';
 
 /// Login form widget containing the email and password fields
@@ -56,9 +56,9 @@ class AuthLoginForm extends GetView<LoginController> {
             ),
           ),
           AppSpacing.vertical(context, 0.02),
-          // Remember me - Using AppRememberMe
+          // Remember me - Using AppCheckbox
           Obx(
-            () => AppRememberMe(
+            () => AppCheckbox(
               value: controller.rememberMe.value,
               onChanged: (_) => controller.toggleRememberMe(),
               label: AppTexts.rememberMe,

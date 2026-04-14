@@ -37,12 +37,7 @@ class OnboardingBottomPanel extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          AppDotsIndicator(
-            count: pageCount,
-            currentIndex: currentIndex,
-            activeColor: AppColors.primary,
-            inactiveColor: AppColors.black,
-          ),
+          AppDotsIndicator(count: pageCount, currentIndex: currentIndex),
           AppSpacing.vertical(context, 0.02),
           Text(
             page.title,

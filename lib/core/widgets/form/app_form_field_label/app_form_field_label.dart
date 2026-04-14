@@ -4,6 +4,7 @@ import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
+import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
 
 /// Reusable form field label with optional required asterisk and spacing below.
 /// When [label] is null, returns [SizedBox.shrink]. Use [spacingAfter] to adjust
@@ -22,19 +23,22 @@ class AppFormFieldLabel extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              label!,
-              style: AppTextStyles.bodyText(context).copyWith(
-                fontWeight: FontWeight.w500,
-                fontFamily: AppFonts.primaryFont,
-                color: AppColors.primary,
+            Flexible(
+              child: Text(
+                label!,
+                style: AppTextStyles.bodyText(context).copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: AppFonts.primaryFont,
+                  color: AppColors.primary,
+                ),
               ),
             ),
             if (required)
               Text(
-                ' *',
+                AppTexts.requiredSymbol,
                 style: AppTextStyles.bodyText(context).copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFonts.primaryFont,

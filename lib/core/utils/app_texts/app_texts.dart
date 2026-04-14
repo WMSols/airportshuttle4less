@@ -78,6 +78,100 @@ class AppTexts {
   static const String profile = "Profile";
   static const String support = "Support";
 
+  // Marketing home
+  static const String homeTitle = "AirportShuttles4Less";
+  static const String homeWelcomeTitle = "Welcome";
+  static const String homeWelcomeBody =
+      "We specialize in airport transfers, hourly charters, and point-to-point travel for individuals and groups. "
+      "Our team focuses on punctual pickups, courteous chauffeurs, and vehicles kept to high standards so you can relax before and after your flight.";
+  static const String homeTrustedTitle = "A trusted ride, every time";
+  static const String homeTrustedBody =
+      "Licensed, experienced drivers and a commitment to safety and transparency — from quote to drop-off.";
+  static const String homeBookReservation = "Book Reservation";
+  static const String homePreferredVehiclesTitle = "Preferred Vehicles";
+  static const String homePartnersTitle = "Our Partners";
+  static const String homeReadMoreWebsite = "Read more on our website";
+  static const String preferredVehicleCallForRates = "Call for Rates";
+
+  static const String homeProcessTitle = "How we work";
+  static const String homeProcess1Label = "Safe guarantee";
+  static const String homeProcess2Label = "Fastest pickups";
+  static const String homeProcess3Label = "Quick rides";
+  static const String homeProcess4Label = "Cleared drivers";
+
+  // Locations
+  static const String homeLocationsTitle = "Locations we serve";
+  static const String homeViewAllLocations = "View all locations";
+  static const String homeLocationsFilter = "Location scope";
+  static const String homeLocationsAll = "All";
+  static const String homeLocationsDmv = "DMV";
+  static const String homeLocationsNationwide = "Nationwide";
+  static const String homeLocationsWorldwide = "Worldwide";
+  static const String homeLocationAlexandria = "Alexandria, VA";
+  static const String homeLocationWashington = "Washington, DC";
+  static const String homeLocationArlington = "Arlington, VA";
+  static const String homeLocationBaltimore = "Baltimore, MD";
+  static const String homeLocationSpringfield = "Springfield, VA";
+  static const String homeLocationMaryland = "Maryland";
+  static const String homeLocationAnnapolis = "Annapolis, MD";
+  static const String homeLocationFairfax = "Fairfax, VA";
+  static const String locationAlexandriaVa = "Alexandria VA";
+  static const String locationWashingtonDc = "Washington DC";
+  static const String locationArlingtonVa = "Arlington VA";
+  static const String locationBaltimoreMd = "Baltimore MD";
+  static const String locationSpringfieldVa = "Springfield VA";
+  static const String locationMaryland = "Maryland";
+  static const String locationAnnapolisMd = "Annapolis MD";
+  static const String locationFairfaxVa = "Fairfax VA";
+  static const String locationLeesburgVa = "Leesburg VA";
+  static const String locationStaffordVa = "Stafford VA";
+  static const String locationWaldorfMd = "Waldorf MD";
+  static const String locationGaithersburgMd = "Gaithersburg MD";
+  static const String locationOxonHillMd = "Oxon Hill MD";
+  static const String locationColumbiaMd = "Columbia MD";
+  static const String locationBethesdaMd = "Bethesda MD";
+  static const String locationAnnandaleVa = "Annandale VA";
+  static const String locationGreatFallsVa = "Great Falls VA";
+  static const String locationMcleanVirginia = "McLean Virginia";
+  static const String locationFallsChurchVa = "Falls Church VA";
+  static const String locationIdylwoodVa = "Idylwood VA";
+  static const String locationLincolniaVa = "Lincolnia VA";
+  static const String locationOaktonVa = "Oakton VA";
+  static const String locationPotomacMd = "Potomac MD";
+  static const String locationTysonsVa = "Tysons VA";
+  static const String locationWestFallsChurchVa = "West Falls Church VA";
+  static const String locationWolfTrapVirginia = "Wolf Trap Virginia";
+  static const String locationSilverSpring = "Silver Spring";
+  static const String locationNewYork = "New York";
+  static const String locationBostonMassachusetts = "Boston Massachusetts";
+  static const String locationAtlantaGeorgia = "Atlanta Georgia";
+  static const String locationLosAngeles = "Los Angeles";
+  static const String locationNewJersey = "New Jersey";
+  static const String locationDelaware = "Delaware";
+  static const String locationPennsylvania = "Pennsylvania";
+  static const String locationUnitedStates = "United States";
+  static const String locationDubai = "Dubai";
+  static const String locationFrance = "France";
+  static const String locationIndia = "India";
+  static const String locationUnitedKingdom = "United Kingdom";
+
+  // Services
+  static const String homeServicesTitle = "What we offer";
+  static const String homeViewAllServices = "View all services";
+  static const String servicePointToPointLimo = "Point To Point";
+  static const String serviceAirportTransportation = "Airport";
+  static const String serviceVanOrExclusiveShuttles = "Van Shuttle";
+  static const String serviceHourlyLimo = "Hourly Limo";
+  static const String serviceCorporateTransportation = "Corporate ";
+  static const String serviceWineryCityTours = "Winery & City Tours";
+  static const String serviceGroupTransportation = "Group ";
+  static const String servicePrivateSchoolBus = "Private School Bus";
+  static const String serviceBachelorEttePartyLimo = "Bachelor Party Limo";
+  static const String serviceWeddingSpecial = "Wedding Special";
+  static const String serviceBusCharterRental = "Bus Charter";
+  static const String serviceExoticCarRental = "Exotic Car";
+  static const String serviceMinivans = "Minivans";
+
   // Home / Search Ride
   static const String searchRide = "Search Ride";
   static const String pickupLocation = "Pickup Location";
@@ -295,4 +389,97 @@ class AppTexts {
       "Booking, cancellation and policies";
   static const String privacyPolicy = "Privacy Policy";
   static const String privacyPolicySubtitle = "How we handle your data";
+
+  // Reservation flow
+  static const String reservation = "Reservation";
+  static const String rideInfo = "Ride Info";
+  static const String paymentInfo = "Payment Info";
+  static const String searchNow = "SEARCH NOW →";
+  static const String bookNow = "Book Now";
+  static const String back = "Back";
+  static const String completeBooking = "COMPLETE BOOKING";
+  static const String selectService = "Select Service";
+  static const String toAirport = "To Airport";
+  static const String fromAirport = "From Airport";
+  static const String selectAirport = "Select Airport";
+  static const String select = "Select";
+  static const String enterAddress = "Enter address";
+  static const String number = "Number";
+  static const String pickupDateLabel = "Pick-up Date";
+  static const String pickupTimeLabel = "Pickup time";
+  static const String dropDateLabel = "Drop Date";
+  static const String dropTimeLabel = "Drop Time";
+  static const String returnTimeLabel = "Return Time";
+  static const String returnReservations = "Return Reservations";
+  static const String returnPickupDate = "Return Pick-up Date";
+  static const String returnDropDate = "Return Drop-off Date";
+  static const String returnFlightNumber = "Return Flight Number";
+  static const String returnAirlines = "Return Airlines";
+  static const String flightArrivalTime = "Flight Arrival Time";
+  static const String returnDropTime = "Return Drop-off Time";
+  static const String selectLocation = "Select Location";
+  static const String address = "Address";
+  static const String hoursLabel = "Hours";
+  static const String serviceLabel = "SERVICE:";
+  static const String bookingDetailsLabel = "Booking Details:";
+  static const String dropLocation = "Drop Location";
+  static const String personalDetailsLabel = "Personal Details:";
+  static const String alternativePhone = "Alternative Phone Number";
+  static const String registeredEmail = "Registered Email Address";
+  static const String remark = "Remark";
+  static const String specialInstructions = "Special instructions";
+  static const String reviewAndBookTrip = "Review and book your trip";
+  static const String attentionTransferInfo =
+      "Attention! Please read important transfer information!";
+  static const String as4lPrivacyStatement =
+      "AirportShuttles4Less (AS4L) is committed to safeguarding your personal data and upholding the highest ethical standards in data processing.";
+  static const String termsAcceptance =
+      "By selecting to complete this booking I acknowledge that I have read and accept the ";
+  static const String andLabel = " and ";
+  static const String baseFare = "Base Fare";
+  static const String approxDistance = "Approx Distance";
+  static const String miles = "Miles";
+  static const String subTotal = "Sub Total";
+  static const String offerCode = "Offer Code";
+  static const String offerApplied = "Offer applied";
+  static const String gratuityLabel = "Gratuity";
+  static const String cardProcessingFee = "Card Processing Fee (3%)";
+  static const String grandTotal = "Grand Total";
+  static const String lateNightNote =
+      "AS4L imposes a service fee for late night service (11:00 PM TO 5:00 AM).";
+  static const String noVehiclesAvailable =
+      "No vehicles available. Try different passengers.";
+  static const String retry = "Retry";
+  static const String reservationId = "Reservation ID";
+  static const String reservationConfirmedMessage =
+      "Your reservation has been confirmed. You will receive a confirmation email shortly.";
+  static const String pleaseAcceptTerms = "Please accept terms and conditions";
+  static const String pleaseFillRequired =
+      "Please fill First Name, Last Name, Phone, Email";
+  static const String requiredLabel = "Required";
+  static const String bookingFailed = "Booking failed";
+  static const String airportTransfer = "Airport Transfer";
+  static const String pointToPoint = "Point to Point";
+  static const String hourly = "Hourly";
+  static const String tabAirport = "AIRPORT";
+  static const String tabPointToPoint = "POINT TO POINT";
+  static const String tabHourly = "HOURLY";
+  static const String priceLabel = "Price";
+  static const String flightNumberHint = "e.g. 1122";
+  static const String airlinesLabel = "Airlines / Flight";
+  static const String airlinesHint = "e.g. ABX Air";
+  static const String optional = "Optional";
+  static const String pickupDateAndTime = "Pick-up Date & Time";
+  static const String returnDateAndTime = "Return Date & Time";
+
+  // Additional static texts for reuse
+  static const String tripDetails = "Trip Details";
+  static const String priceDetails = "Price Details";
+  static const String bookARide = "Book a Ride";
+  static const String whereWouldYouLikeToGo = "Where would you like to go?";
+  static const String managedByWMSols = "Managed by WMSols";
+  static const String requiredSymbol = " *";
+  static const String upToPassengers = "Up to";
+  static const String passengersSuffix = "passengers";
+  static const String total = "Total";
 }

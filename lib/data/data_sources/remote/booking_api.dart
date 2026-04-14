@@ -19,10 +19,7 @@ class BookingApi {
   }) async {
     final response = await _dio.post(
       ApiConstants.addReservation,
-      data: {
-        'Reservation': request.toJson(),
-        'IsEmail': isEmail,
-      },
+      data: {'Reservation': request.toJson(), 'IsEmail': isEmail},
     );
     return response.data as Map<String, dynamic>;
   }

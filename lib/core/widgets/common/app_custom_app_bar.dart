@@ -1,4 +1,6 @@
+import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
@@ -34,30 +36,40 @@ class AppCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final effectiveLeading = isBack
         ? Padding(
             padding: EdgeInsets.only(
-              left: AppSpacing.horizontalValue(context, 0.04),
-              top: AppSpacing.verticalValue(context, 0.02),
+              left: AppSpacing.horizontalValue(context, 0.02),
             ),
-            child: AppIconButton(
-              isBack: true,
-              color: AppColors.white,
-              backgroundColor: AppColors.primary,
+            child: Align(
+              alignment: Alignment.center,
+              child: AppIconButton(
+                isBack: true,
+                color: AppColors.white,
+                backgroundColor: AppColors.primary,
+              ),
             ),
           )
         : leading;
     return AppBar(
       title: Text(
         title,
-        style: AppTextStyles.heading(
-          context,
-        ).copyWith(color: AppColors.black, fontWeight: FontWeight.w800),
+        style: AppTextStyles.heading(context).copyWith(
+          color: AppColors.black,
+          fontWeight: FontWeight.w800,
+          fontSize: AppResponsive.screenWidth(context) * 0.05,
+        ),
+      ),
+      // Light content behind status bar → dark status bar icons (Android + iOS).
+      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.transparent,
       ),
       backgroundColor: Colors.transparent,
       foregroundColor: AppColors.white,
       automaticallyImplyLeading: isBack ? false : automaticallyImplyLeading,
       leading: effectiveLeading,
+      leadingWidth: kToolbarHeight,
       actions: actions,
       bottom: bottom,
       centerTitle: true,
+      titleSpacing: 0,
       iconTheme: IconThemeData(color: AppColors.white),
       elevation: 0,
     );
