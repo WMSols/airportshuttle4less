@@ -31,9 +31,9 @@ class ProfileContent extends StatelessWidget {
 
     return Obx(() {
       if (controller.isLoading.value) {
-        return const Center(
+        return Center(
           child: Padding(
-            padding: EdgeInsets.all(24),
+            padding: AppSpacing.all(context, factor: 1.5),
             child: CircularProgressIndicator(),
           ),
         );
