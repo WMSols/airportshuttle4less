@@ -6,6 +6,7 @@ class EnvConfig {
 
   /// Base URL loaded from environment variable
   static String get baseUrl => dotenv.env['BASE_URL'] ?? '';
+  static String get googleMapsApiKey => dotenv.env['GOOGLE_MAPS_API_KEY'] ?? '';
 
   static Future<void> load() async {
     try {

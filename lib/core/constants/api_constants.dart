@@ -24,8 +24,6 @@ class ApiConstants {
 
   // SearchHandler endpoints (vehicles for reservation)
   static const String loadVehicles = '/Handler/SearchHandler.asmx/LoadVehicles';
-  static const String loadFredrickCars =
-      '/Handler/SearchHandler.asmx/LoadFredrickCars';
 
   // Admin endpoints
   static const String getAllCustomers =

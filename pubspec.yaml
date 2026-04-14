@@ -65,6 +65,11 @@ flutter:
     - assets/images/logo/
     - assets/images/onboarding/
     - assets/images/auth/
+    - assets/images/home/
+    - assets/images/home/locations/
+    - assets/images/home/services/
+    - assets/images/home/vehicles/
+    - assets/images/home/partners/
     - assets/fonts/
 
   fonts:

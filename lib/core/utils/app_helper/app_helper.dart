@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+
 /// Helpers: reusable logic for strings, lists, dates, and other types.
 /// For display formatting use [AppFormatter]; for form validation use [AppValidators].
 class AppHelper {
@@ -69,4 +72,17 @@ extension StringHelperExtension on String? {
 
   /// True if this string is not null and has non-whitespace content.
   bool get isNotNullOrEmpty => AppHelper.isNotNullOrEmpty(this);
+}
+
+extension IconDataHelperExtension on IconData {
+  String get featureLabel {
+    if (this == Iconsax.user) return 'Passengers';
+    if (this == Iconsax.briefcase) return 'Luggage';
+    if (this == Iconsax.wifi) return 'WiFi';
+    if (this == Iconsax.card) return 'Card';
+    if (this == Iconsax.flash_1) return 'Power';
+    if (this == Iconsax.note_1) return 'Reading Light';
+    if (this == Iconsax.call) return 'Pricing';
+    return 'Feature';
+  }
 }

@@ -14,11 +14,8 @@ abstract class AppRoutes {
   // Main/Home
   static const String main = '/main';
   static const String home = '/home';
-  static const String searchRide = '/search-ride';
-  static const String selectVehicle = '/select-vehicle';
-  static const String bookingDetails = '/booking-details';
-  static const String payment = '/payment';
-  static const String success = '/success';
+  static const String allLocations = '/all-locations';
+  static const String allServices = '/all-services';
 
   // My Bookings
   static const String myBookings = '/my-bookings';

@@ -13,17 +13,25 @@ class AppDotsIndicator extends StatelessWidget {
     required this.currentIndex,
     this.activeColor,
     this.inactiveColor,
+    this.activeDotSize,
+    this.inactiveDotSize,
   });
 
   final int count;
   final int currentIndex;
   final Color? activeColor;
   final Color? inactiveColor;
+  final double? activeDotSize;
+  final double? inactiveDotSize;
 
   @override
   Widget build(BuildContext context) {
     final active = activeColor ?? AppColors.primary;
-    final inactive = inactiveColor ?? AppColors.primary;
+    final inactive = inactiveColor ?? AppColors.black;
+    final activeDotSize =
+        this.activeDotSize ?? AppResponsive.scaleSize(context, 150);
+    final inactiveDotSize =
+        this.inactiveDotSize ?? AppResponsive.scaleSize(context, 30);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -35,9 +43,7 @@ class AppDotsIndicator extends StatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             curve: Curves.easeInOut,
-            width: currentIndex == i
-                ? AppResponsive.scaleSize(context, 150)
-                : AppResponsive.scaleSize(context, 30),
+            width: currentIndex == i ? activeDotSize : inactiveDotSize,
             height: AppResponsive.scaleSize(context, 8),
             decoration: BoxDecoration(
               color: currentIndex == i ? active : Colors.transparent,

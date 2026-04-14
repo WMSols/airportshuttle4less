@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
-import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
-import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
 
-/// Reusable "Remember Me" checkbox row. Label uses [AppColors.primary] when checked.
-class AppRememberMe extends StatelessWidget {
-  const AppRememberMe({
+/// Reusable checkbox widget styled to match AppTextField/AppDropdownField.
+/// Use this for form checkboxes like "Return Trip", "Terms & Conditions", etc.
+class AppCheckbox extends StatelessWidget {
+  const AppCheckbox({
     super.key,
     required this.value,
     required this.onChanged,
@@ -21,8 +20,6 @@ class AppRememberMe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textColor = value ? AppColors.primary : AppColors.black;
-
     return InkWell(
       onTap: () => onChanged(!value),
       borderRadius: BorderRadius.circular(AppResponsive.radius(context)),
@@ -42,13 +39,14 @@ class AppRememberMe extends StatelessWidget {
               ),
             ),
           ),
-          AppSpacing.horizontal(context, 0.02),
-          Text(
-            label,
-            style: AppTextStyles.bodyText(context).copyWith(
-              fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.primaryFont,
-              color: textColor,
+          SizedBox(width: AppResponsive.screenWidth(context) * 0.02),
+          Expanded(
+            child: Text(
+              label,
+              style: AppTextStyles.bodyText(context).copyWith(
+                fontWeight: FontWeight.w500,
+                color: value ? AppColors.primary : AppColors.black,
+              ),
             ),
           ),
         ],

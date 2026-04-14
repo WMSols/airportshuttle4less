@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
@@ -20,7 +21,14 @@ class AirportShuttles4LessApp extends StatelessWidget {
       initialRoute: initialRoute,
       getPages: AppPages.routes,
       builder: (context, child) {
-        return AppNoConnectionBanner(child: child ?? const SizedBox.shrink());
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.dark.copyWith(
+            statusBarColor: Colors.transparent,
+            systemNavigationBarColor: Colors.white,
+            systemNavigationBarIconBrightness: Brightness.dark,
+          ),
+          child: AppNoConnectionBanner(child: child ?? const SizedBox.shrink()),
+        );
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
@@ -29,6 +37,9 @@ class AirportShuttles4LessApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
+          systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+            statusBarColor: AppColors.primary,
+          ),
         ),
       ),
     );
