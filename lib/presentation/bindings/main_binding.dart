@@ -1,17 +1,18 @@
 import 'package:get/get.dart';
 
 import 'package:airportshuttle4less/presentation/controllers/home/home_controller.dart';
-import 'package:airportshuttle4less/presentation/controllers/main/main_controller.dart';
 import 'package:airportshuttle4less/presentation/controllers/main/main_navigation_controller.dart';
 import 'package:airportshuttle4less/presentation/controllers/profile/profile_controller.dart';
 import 'package:airportshuttle4less/presentation/controllers/reservation/reservation_flow_controller.dart';
+import 'package:airportshuttle4less/presentation/controllers/reservation/reservation_payment_info_controller.dart';
 import 'package:airportshuttle4less/presentation/controllers/reservation/reservation_ride_info_controller.dart';
+import 'package:airportshuttle4less/presentation/controllers/reservation/reservation_select_vehicle_controller.dart';
+import 'package:airportshuttle4less/presentation/controllers/reservation/reservation_tab_flow_controller.dart';
 
 /// Main binding - registers all tab controllers
 class MainBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<MainController>(() => MainController());
     if (!Get.isRegistered<HomeController>()) {
       Get.lazyPut<HomeController>(() => HomeController());
     }
@@ -20,6 +21,15 @@ class MainBinding extends Bindings {
     Get.lazyPut<ReservationFlowController>(() => ReservationFlowController());
     Get.lazyPut<ReservationRideInfoController>(
       () => ReservationRideInfoController(),
+    );
+    Get.lazyPut<ReservationSelectVehicleController>(
+      () => ReservationSelectVehicleController(),
+    );
+    Get.lazyPut<ReservationPaymentInfoController>(
+      () => ReservationPaymentInfoController(),
+    );
+    Get.lazyPut<ReservationTabFlowController>(
+      () => ReservationTabFlowController(),
     );
   }
 }

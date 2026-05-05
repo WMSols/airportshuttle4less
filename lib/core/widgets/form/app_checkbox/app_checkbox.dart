@@ -11,21 +11,28 @@ class AppCheckbox extends StatelessWidget {
     super.key,
     required this.value,
     required this.onChanged,
-    required this.label,
-  });
+    this.label,
+    this.richLabel,
+  }) : assert(
+         (label != null) ^ (richLabel != null),
+         'Provide exactly one of label or richLabel',
+       );
 
   final bool value;
   final ValueChanged<bool> onChanged;
-  final String label;
+  final String? label;
+  final Widget? richLabel;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onChanged(!value),
-      borderRadius: BorderRadius.circular(AppResponsive.radius(context)),
-      child: Row(
-        children: [
-          SizedBox(
+    final radius = BorderRadius.circular(AppResponsive.radius(context));
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        InkWell(
+          onTap: () => onChanged(!value),
+          borderRadius: radius,
+          child: SizedBox(
             width: AppResponsive.iconSize(context),
             height: AppResponsive.iconSize(context),
             child: Checkbox(
@@ -39,18 +46,23 @@ class AppCheckbox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: AppResponsive.screenWidth(context) * 0.02),
-          Expanded(
-            child: Text(
-              label,
-              style: AppTextStyles.bodyText(context).copyWith(
-                fontWeight: FontWeight.w500,
-                color: value ? AppColors.primary : AppColors.black,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+        SizedBox(width: AppResponsive.screenWidth(context) * 0.02),
+        Expanded(
+          child: richLabel != null
+              ? richLabel!
+              : InkWell(
+                  onTap: () => onChanged(!value),
+                  borderRadius: radius,
+                  child: Text(
+                    label!,
+                    style: AppTextStyles.bodyText(context).copyWith(
+                      color: value ? AppColors.primary : AppColors.black,
+                    ),
+                  ),
+                ),
+        ),
+      ],
     );
   }
 }

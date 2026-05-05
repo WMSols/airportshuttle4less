@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import 'package:airportshuttle4less/core/constants/api_constants.dart';
@@ -18,11 +20,12 @@ class VehicleApi {
       ApiConstants.loadVehicles,
       data: {'Tab': tab, 'Capacity': capacity},
     );
-    final data = response.data;
-    if (data is! Map<String, dynamic> || data['retCode'] != 1) {
+    final data = _unwrapAsmx(response.data);
+    final retCode = data['retCode'] ?? data['RetCode'];
+    if (retCode != 1 && retCode != '1') {
       return [];
     }
-    final list = data['VehInfo'];
+    final list = data['VehInfo'] ?? data['vehInfo'] ?? data['Arr'];
     if (list is! List) return [];
     return list
         .map<ReservationVehicleModel>(
@@ -31,5 +34,26 @@ class VehicleApi {
           ),
         )
         .toList();
+  }
+
+  /// Unwrap ASP.NET AJAX/ASMX payload:
+  /// - { "d": { ... } }
+  /// - { "d": "{\"retCode\":1,...}" }
+  /// - plain map payload.
+  Map<String, dynamic> _unwrapAsmx(dynamic response) {
+    if (response is String) {
+      final decoded = jsonDecode(response);
+      if (decoded is Map<String, dynamic>) return decoded;
+      return <String, dynamic>{};
+    }
+    if (response is! Map<String, dynamic>) return <String, dynamic>{};
+    final d = response['d'];
+    if (d == null) return response;
+    if (d is Map<String, dynamic>) return d;
+    if (d is String) {
+      final decoded = jsonDecode(d);
+      if (decoded is Map<String, dynamic>) return decoded;
+    }
+    return <String, dynamic>{};
   }
 }

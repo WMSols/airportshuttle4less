@@ -5,11 +5,13 @@ import 'package:airportshuttle4less/core/config/env_config.dart';
 import 'package:airportshuttle4less/core/constants/api_constants.dart';
 import 'package:airportshuttle4less/core/network/api_interceptors.dart';
 import 'package:airportshuttle4less/core/network/connectivity_service.dart';
+import 'package:airportshuttle4less/core/services/reservation_pricing_catalog_service.dart';
 import 'package:airportshuttle4less/data/data_sources/local/auth_token_holder.dart';
 import 'package:airportshuttle4less/data/data_sources/local/secure_storage_source.dart';
 import 'package:airportshuttle4less/data/data_sources/remote/auth_api.dart';
 import 'package:airportshuttle4less/data/data_sources/remote/booking_api.dart';
 import 'package:airportshuttle4less/data/data_sources/remote/vehicle_api.dart';
+import 'package:airportshuttle4less/data/data_sources/remote/reservation_pricing_api.dart';
 import 'package:airportshuttle4less/data/data_sources/remote/payment_api.dart';
 import 'package:airportshuttle4less/data/data_sources/remote/support_api.dart';
 import 'package:airportshuttle4less/data/repositories/auth_repository_impl.dart';
@@ -31,9 +33,7 @@ import 'package:airportshuttle4less/domain/use_cases/support_use_case.dart';
 /// Setup dependency injection using GetX
 void setupDependencyInjection() {
   // Core
-  final baseUrl = EnvConfig.baseUrl.isNotEmpty
-      ? EnvConfig.baseUrl
-      : ApiConstants.baseUrl;
+  final baseUrl = EnvConfig.baseUrl;
   final dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
@@ -46,7 +46,7 @@ void setupDependencyInjection() {
     ),
   );
 
-  // TODO: Pass getToken and onUnauthorized so authenticated requests get Bearer token
+  // To Do: Pass getToken and onUnauthorized so authenticated requests get Bearer token
   // and 401 triggers logout. E.g. getToken: () => Get.find<AuthTokenHolder>().accessToken
   dio.interceptors.add(ApiInterceptors());
   Get.put<Dio>(dio);
@@ -62,8 +62,10 @@ void setupDependencyInjection() {
   Get.put<AuthApi>(AuthApi(dio));
   Get.put<BookingApi>(BookingApi(dio));
   Get.put<VehicleApi>(VehicleApi(dio));
+  Get.put<ReservationPricingApi>(ReservationPricingApi(dio));
   Get.put<PaymentApi>(PaymentApi(dio));
   Get.put<SupportApi>(SupportApi(dio));
+  Get.put<ReservationPricingCatalogService>(ReservationPricingCatalogService());
 
   // Repositories
   Get.put<AuthRepository>(

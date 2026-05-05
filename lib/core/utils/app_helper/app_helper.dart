@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:airportshuttle4less/core/utils/app_images/app_images.dart';
 
 /// Helpers: reusable logic for strings, lists, dates, and other types.
 /// For display formatting use [AppFormatter]; for form validation use [AppValidators].
@@ -76,13 +77,176 @@ extension StringHelperExtension on String? {
 
 extension IconDataHelperExtension on IconData {
   String get featureLabel {
-    if (this == Iconsax.user) return 'Passengers';
-    if (this == Iconsax.briefcase) return 'Luggage';
-    if (this == Iconsax.wifi) return 'WiFi';
-    if (this == Iconsax.card) return 'Card';
-    if (this == Iconsax.flash_1) return 'Power';
-    if (this == Iconsax.note_1) return 'Reading Light';
-    if (this == Iconsax.call) return 'Pricing';
+    if (this == Iconsax.user) return 'Maximum Capacity';
+    if (this == Iconsax.briefcase) return 'Max Baggage';
+    if (this == Iconsax.wifi) return 'On Board WiFi';
+    if (this == Iconsax.card) return 'Phone Chargers';
+    if (this == Iconsax.flash_1) return 'Complimentary Water';
+    if (this == Iconsax.note_1) return 'Heated Seats';
+    if (this == Iconsax.call) return 'Call for Rates';
     return 'Feature';
+  }
+}
+
+extension VehicleImageHelperExtension on String {
+  /// Best-effort mapping from API vehicle model name to local asset image.
+  String get vehicleImageAsset {
+    final key = toLowerCase().trim();
+    final normalized = key.replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+    // Website naming variants (e.g. Eco-Sedan, Black SUV Full Size, S-550)
+    if (normalized.contains('ecosedan')) {
+      return AppImages.preferredEcoSedan;
+    }
+    if (normalized.contains('blackcarsedan')) {
+      return AppImages.preferredPremiumSedan;
+    }
+    if (normalized.contains('blacksuvfullsize')) {
+      return AppImages.preferredPremiumSuv;
+    }
+    if (normalized.contains('minivan')) return AppImages.preferredSprinterVan;
+    if (normalized.contains('14paxsprintervan')) {
+      return AppImages.preferredMinivan;
+    }
+    if (normalized.contains('s550')) {
+      return AppImages.preferredS550;
+    }
+
+    if (key.contains('rolls') && key.contains('phantom')) {
+      return AppImages.preferredRollsRoycePhantom;
+    }
+    if (key.contains('premium') && key.contains('sedan')) {
+      return AppImages.preferredPremiumSedan;
+    }
+    if (key.contains('mercedes') &&
+        (key.contains('s550') || key.contains('s-550'))) {
+      return AppImages.preferredLuxuryMercedesS550;
+    }
+    if (key.contains('exclusive') && key.contains('sedan')) {
+      return AppImages.preferredExclusiveSedan;
+    }
+    if (key.contains('exclusive') && key.contains('suv')) {
+      return AppImages.preferredExclusiveSuv;
+    }
+    if (key.contains('sprinter') && key.contains('limo')) {
+      return AppImages.preferredMercedesLimoSprinter;
+    }
+    if (key.contains('sprinter') && key.contains('executive')) {
+      return AppImages.preferredMercedesExecutiveSprinter;
+    }
+    if (key.contains('jet') && key.contains('sprinter')) {
+      return AppImages.preferredJetSprinter;
+    }
+    if (key.contains('sprinter')) return AppImages.preferredSprinterVan;
+    if (key.contains('hummer') && key.contains('limo')) {
+      return AppImages.preferredHummerLimo;
+    }
+    if (key.contains('party') && key.contains('bus')) {
+      return AppImages.preferredPartyBus;
+    }
+    if (key.contains('luxury') && key.contains('suv')) {
+      return AppImages.preferredLuxurySuv;
+    }
+    if (key.contains('premium') && key.contains('suv')) {
+      return AppImages.preferredPremiumSuv;
+    }
+    if (key.contains('coach') && key.contains('bus')) {
+      return AppImages.preferredCoachBus;
+    }
+    if (key.contains('executive') &&
+        key.contains('mini') &&
+        key.contains('bus')) {
+      return AppImages.preferredExecutiveMiniBus;
+    }
+    if (key.contains('maybach') || key.contains('s680')) {
+      return AppImages.preferredMercedesMaybachS680;
+    }
+    if (key.contains('lincoln') && key.contains('limousine')) {
+      return AppImages.preferredLincolnMktLimo;
+    }
+    return AppImages.preferredPremiumSedan;
+  }
+}
+
+extension VehiclePricingKeyHelperExtension on String {
+  /// Maps API vehicle model names to website vehicle type names.
+  String get vehiclePricingKey {
+    final key = toLowerCase().trim();
+    final normalized = key.replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+    if (normalized.contains('ecosedan')) {
+      return 'Eco-Sedan';
+    }
+    if (normalized.contains('blackcarsedan')) {
+      return 'Sedan';
+    }
+    if (normalized.contains('blacksuvfullsize')) {
+      return 'SUV';
+    }
+    if (normalized.contains('minivan')) {
+      return 'Mini Van';
+    }
+    if (normalized.contains('14paxsprintervan')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (normalized.contains('s550')) {
+      return 'Luxury Sedan';
+    }
+
+    if (key.contains('rolls') && key.contains('phantom')) {
+      return 'Luxury Sedan';
+    }
+    if (key.contains('premium') && key.contains('sedan')) {
+      return 'Sedan';
+    }
+    if (key.contains('mercedes') &&
+        (key.contains('s550') || key.contains('s-550'))) {
+      return 'Luxury Sedan';
+    }
+    if (key.contains('exclusive') && key.contains('sedan')) {
+      return 'Sedan';
+    }
+    if (key.contains('exclusive') && key.contains('suv')) {
+      return 'SUV';
+    }
+    if (key.contains('sprinter') && key.contains('limo')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('sprinter') && key.contains('executive')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('jet') && key.contains('sprinter')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('sprinter')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('hummer') && key.contains('limo')) {
+      return 'SUV';
+    }
+    if (key.contains('party') && key.contains('bus')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('luxury') && key.contains('suv')) {
+      return 'SUV';
+    }
+    if (key.contains('premium') && key.contains('suv')) {
+      return 'SUV';
+    }
+    if (key.contains('coach') && key.contains('bus')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('executive') &&
+        key.contains('mini') &&
+        key.contains('bus')) {
+      return '14 Pax Sprinter Van';
+    }
+    if (key.contains('maybach') || key.contains('s680')) {
+      return 'Luxury Sedan';
+    }
+    if (key.contains('lincoln') && key.contains('limousine')) {
+      return 'Luxury Sedan';
+    }
+    return 'Sedan';
   }
 }

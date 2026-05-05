@@ -1,3 +1,4 @@
+import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/widgets/buttons/app_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,6 +70,7 @@ class AuthRegisterForm extends GetView<RegisterController> {
                     ? AppColors.black
                     : AppColors.primary,
                 onPressed: controller.togglePasswordVisibility,
+                borderRadius: AppResponsive.radius(context),
               ),
               validator: controller.validatePassword,
               textInputAction: TextInputAction.next,
@@ -92,6 +94,7 @@ class AuthRegisterForm extends GetView<RegisterController> {
                     ? AppColors.black
                     : AppColors.primary,
                 onPressed: controller.togglePasswordVisibility,
+                borderRadius: AppResponsive.radius(context),
               ),
               validator: controller.validateConfirmPassword,
               textInputAction: TextInputAction.done,

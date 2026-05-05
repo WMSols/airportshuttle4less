@@ -43,7 +43,10 @@ class ProfileController extends GetxController {
   }
 
   void navigateToForgotPassword(String email) {
-    Get.toNamed(AppRoutes.forgotPassword, arguments: {'email': email});
+    Get.toNamed(
+      AppRoutes.forgotPassword,
+      arguments: {'email': email, 'useCustomBackground': false},
+    );
   }
 
   void navigateToFaqs() {

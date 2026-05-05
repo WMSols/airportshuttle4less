@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 import 'package:airportshuttle4less/core/utils/app_images/app_images.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
-import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
-import 'package:airportshuttle4less/presentation/routes/app_routes.dart';
+import 'package:airportshuttle4less/presentation/controllers/splash/splash_controller.dart';
 
 /// Splash screen with gradient background and animated logo
 class SplashScreen extends StatefulWidget {
@@ -22,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<double> _scaleAnimation;
+  late final SplashController _controller;
 
   @override
   void initState() {
@@ -46,33 +46,14 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _animationController.forward();
-    _navigateToNext();
+    _controller = Get.put(SplashController());
+    _controller.navigateToNext();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
-  }
-
-  Future<void> _navigateToNext() async {
-    // Wait for animation to complete and a minimum display time
-    await Future.delayed(const Duration(seconds: 2));
-
-    // Check auth state and navigate accordingly
-    final auth = Get.find<AuthUseCase>();
-    final onboardingDone = await auth.isOnboardingCompleted();
-    final loggedIn = await auth.isLoggedIn();
-
-    if (!onboardingDone) {
-      Get.offAllNamed(AppRoutes.onboarding);
-    } else if (!loggedIn) {
-      Get.offAllNamed(AppRoutes.login);
-    } else {
-      // Hydrate in-memory token so API interceptors can attach it to requests
-      await auth.getCurrentUser();
-      Get.offAllNamed(AppRoutes.main);
-    }
   }
 
   @override

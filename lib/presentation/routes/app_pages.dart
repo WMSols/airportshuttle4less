@@ -30,6 +30,7 @@ import 'package:airportshuttle4less/presentation/screens/profile/corporate/corpo
 import 'package:airportshuttle4less/presentation/screens/profile/legal/terms_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/profile/legal/privacy_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/reservation/reservation_ride_info_screen.dart';
+import 'package:airportshuttle4less/presentation/screens/reservation/reservation_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/reservation/reservation_select_vehicle_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/reservation/reservation_payment_info_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/reservation/reservation_success_screen.dart';
@@ -86,6 +87,7 @@ abstract class AppPages {
       name: AppRoutes.bookingDetail,
       page: () => const BookingDetailScreen(),
     ),
+    GetPage(name: AppRoutes.reservation, page: () => const ReservationScreen()),
     GetPage(
       name: AppRoutes.reservationRideInfo,
       page: () => const ReservationRideInfoScreen(),

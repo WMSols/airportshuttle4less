@@ -8,6 +8,10 @@ abstract class HomeConstants {
   HomeConstants._();
 
   static const String site = 'https://airportshuttles4less.com/';
+  static const String legalTermsUrl =
+      'https://airportshuttles4less.com/terms-and-condition.html';
+  static const String legalPrivacyUrl =
+      'https://airportshuttles4less.com/privacy-policy.html';
   static const String washingtonDc =
       'https://airportshuttles4less.com/shuttle-service-washington-dc.html';
   static const String baltimore =

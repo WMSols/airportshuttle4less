@@ -13,6 +13,7 @@ import 'package:airportshuttle4less/core/utils/app_tags/hero_tags.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
 import 'package:airportshuttle4less/core/constants/home_constants.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_dots_indicator.dart';
+import 'package:airportshuttle4less/core/widgets/common/app_feature_strip.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_hero_preview_screen.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_section_heading.dart';
 import 'package:airportshuttle4less/presentation/controllers/home/home_controller.dart';
@@ -169,6 +170,7 @@ class _PreferredVehicleCard extends StatelessWidget {
                       top: 0,
                       right: -1,
                       child: AppIconButton(
+                        borderRadius: AppResponsive.radius(context),
                         icon: Iconsax.call,
                         onPressed: () => onCallTap(),
                         backgroundColor: AppColors.black,
@@ -178,62 +180,16 @@ class _PreferredVehicleCard extends StatelessWidget {
                   ],
                 ),
               ),
-              _FeatureStrip(features: vehicle.features),
+              AppFeatureStrip(
+                items: vehicle.features
+                    .map(
+                      (f) => AppFeatureStripItem(icon: f.icon, text: f.value),
+                    )
+                    .toList(),
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _FeatureStrip extends StatelessWidget {
-  const _FeatureStrip({required this.features});
-
-  final List<HomePreferredVehicleFeature> features;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.black,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(AppResponsive.radius(context)),
-          topRight: Radius.circular(AppResponsive.radius(context)),
-        ),
-      ),
-      padding: AppSpacing.symmetric(context, h: 0.02, v: 0.01),
-      child: Row(
-        children: features.map((f) {
-          return Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  f.icon,
-                  color: AppColors.white,
-                  size: AppResponsive.iconSize(context, factor: 0.9),
-                ),
-                AppSpacing.horizontal(context, 0.005),
-                Flexible(
-                  child: Text(
-                    f.value,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.start,
-                    style: AppTextStyles.hintText(context).copyWith(
-                      color: AppColors.white,
-                      height: 0.9,
-                      fontWeight: FontWeight.w700,
-                      fontSize: AppResponsive.scaleSize(context, 8),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        }).toList(),
       ),
     );
   }

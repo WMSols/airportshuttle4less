@@ -1,46 +1,44 @@
-/// API path segments. Full URL = baseUrl + path.
+import 'package:airportshuttle4less/core/config/env_config.dart';
+
+/// API values loaded from .env only.
 class ApiConstants {
   ApiConstants._();
 
-  /// Base URL per API docs. Override with EnvConfig.baseUrl when set.
-  static const String baseUrl = 'https://airportshuttles4less.com';
+  static String get baseUrl => EnvConfig.baseUrl;
 
   static const int connectTimeoutMs = 100000;
   static const int receiveTimeoutMs = 100000;
 
   // Auth endpoints
-  static const String login = '/Handler/DefaultHandler.asmx/Login';
-  static const String register = '/Handler/DefaultHandler.asmx/Register';
-  static const String forgotPassword =
-      '/Handler/DefaultHandler.asmx/MailPassword';
-  static const String corporateLogin =
-      '/Handler/DefaultHandler.asmx/CorporateLogin';
+  static String get login => EnvConfig.apiLogin;
+  static String get register => EnvConfig.apiRegister;
+  static String get forgotPassword => EnvConfig.apiForgotPassword;
+  static String get corporateLogin => EnvConfig.apiCorporateLogin;
 
   // Booking endpoints
-  static const String addReservation =
-      '/Handler/BookingHandler.asmx/AddReservation';
-  static const String applyOffer = '/Handler/BookingHandler.asmx/ApplyOffer';
-  static const String checkEmail = '/Handler/BookingHandler.asmx/CheckEmail';
+  static String get addReservation => EnvConfig.apiAddReservation;
+  static String get applyOffer => EnvConfig.apiApplyOffer;
+  static String get checkEmail => EnvConfig.apiCheckEmail;
 
   // SearchHandler endpoints (vehicles for reservation)
-  static const String loadVehicles = '/Handler/SearchHandler.asmx/LoadVehicles';
+  static String get loadVehicles => EnvConfig.apiLoadVehicles;
 
   // Admin endpoints
-  static const String getAllCustomers =
-      '/Admin/Handler/AdminHandler.asmx/GetAllCustomer';
-  static const String addCustomer =
-      '/Admin/Handler/AdminHandler.asmx/AddCustomer';
+  static String get getAllCustomers => EnvConfig.apiGetAllCustomers;
+  static String get addCustomer => EnvConfig.apiAddCustomer;
+  static String get loadDistanceRate => EnvConfig.apiLoadDistanceRate;
+  static String get loadHourlyRate => EnvConfig.apiLoadHourlyRate;
+  static String get getA4slAirports => EnvConfig.apiGetA4slAirports;
+  static String get getAllOffer => EnvConfig.apiGetAllOffer;
 
   // Corporate endpoints
-  static const String addCorporateReservation =
-      '/AdminCorporate/Handler/CorporativeHandler.asmx/AddReservation';
+  static String get addCorporateReservation =>
+      EnvConfig.apiAddCorporateReservation;
 
   // Support/Misc endpoints
-  static const String loadAllComment =
-      '/Handler/DefaultHandler.asmx/LoadAllComment';
-  static const String saveComment = '/Handler/DefaultHandler.asmx/SaveComment';
-  static const String deleteComment =
-      '/Handler/DefaultHandler.asmx/DeleteComment';
-  static const String enquiryMail = '/Handler/DefaultHandler.asmx/EnquiryMail';
-  static const String quoteMail = '/Handler/DefaultHandler.asmx/QuoteMail';
+  static String get loadAllComment => EnvConfig.apiLoadAllComment;
+  static String get saveComment => EnvConfig.apiSaveComment;
+  static String get deleteComment => EnvConfig.apiDeleteComment;
+  static String get enquiryMail => EnvConfig.apiEnquiryMail;
+  static String get quoteMail => EnvConfig.apiQuoteMail;
 }
