@@ -9,7 +9,7 @@ import 'package:airportshuttle4less/presentation/screens/my_bookings/my_bookings
 import 'package:airportshuttle4less/presentation/screens/profile/profile_screen.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
 import 'package:airportshuttle4less/presentation/controllers/main/main_navigation_controller.dart';
-import 'package:airportshuttle4less/presentation/screens/reservation/reservation_ride_info_screen.dart';
+import 'package:airportshuttle4less/presentation/screens/reservation/reservation_screen.dart';
 
 /// Main screen with persistent bottom navigation (Style 7).
 /// Support (FAQs, Contact Us, Corporate Quotes) is accessed from Profile.
@@ -39,7 +39,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> _buildScreens() => const [
     HomeScreen(),
-    ReservationRideInfoScreen(),
+    ReservationScreen(),
     MyBookingsScreen(),
     ProfileScreen(),
   ];

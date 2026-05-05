@@ -39,7 +39,7 @@ class ProfileMenuRow extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(
-                  AppResponsive.radius(context),
+                  AppResponsive.radius(context) * 5,
                 ),
                 color: AppColors.primary,
               ),

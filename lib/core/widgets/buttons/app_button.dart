@@ -7,6 +7,7 @@ import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dar
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/widgets/buttons/button_types.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -150,5 +151,3 @@ class AppButton extends StatelessWidget {
     );
   }
 }
-
-enum IconPosition { left, right }

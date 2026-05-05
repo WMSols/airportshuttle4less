@@ -5,9 +5,7 @@ import 'package:airportshuttle4less/data/data_sources/remote/vehicle_api.dart';
 /// Vehicle repository implementation
 /// No vehicle endpoints are documented in the API documentation
 class VehicleRepositoryImpl implements VehicleRepository {
-  final VehicleApi _api;
-
-  VehicleRepositoryImpl({required VehicleApi api}) : _api = api;
+  VehicleRepositoryImpl({required VehicleApi api});
 
   @override
   Future<List<Vehicle>> getVehicles() async {

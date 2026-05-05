@@ -1,10 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter/services.dart';
 
 import 'package:airportshuttle4less/core/constants/storage_keys.dart';
 
 /// Secure storage wrapper for local data persistence
 class SecureStorageSource {
   final FlutterSecureStorage _storage;
+  bool _didAttemptRecovery = false;
 
   SecureStorageSource({FlutterSecureStorage? storage})
     : _storage =
@@ -15,83 +17,130 @@ class SecureStorageSource {
 
   /// Save user ID
   Future<void> saveUserId(String userId) async {
-    await _storage.write(key: StorageKeys.userId, value: userId);
+    await _safeRun(
+      () => _storage.write(key: StorageKeys.userId, value: userId),
+    );
   }
 
   /// Get user ID
   Future<String?> getUserId() async {
-    return await _storage.read(key: StorageKeys.userId);
+    return _safeRun(() => _storage.read(key: StorageKeys.userId));
   }
 
   /// Save user data as JSON string
   Future<void> saveUserData(String userJson) async {
-    await _storage.write(key: StorageKeys.userData, value: userJson);
+    await _safeRun(
+      () => _storage.write(key: StorageKeys.userData, value: userJson),
+    );
   }
 
   /// Get user data
   Future<String?> getUserData() async {
-    return await _storage.read(key: StorageKeys.userData);
+    return _safeRun(() => _storage.read(key: StorageKeys.userData));
   }
 
   /// Save remember me preference
   Future<void> saveRememberMe(bool value) async {
-    await _storage.write(key: StorageKeys.rememberMe, value: value.toString());
+    await _safeRun(
+      () =>
+          _storage.write(key: StorageKeys.rememberMe, value: value.toString()),
+    );
   }
 
   /// Get remember me preference
   Future<bool> getRememberMe() async {
-    final value = await _storage.read(key: StorageKeys.rememberMe);
+    final value = await _safeRun(
+      () => _storage.read(key: StorageKeys.rememberMe),
+    );
     return value == 'true';
   }
 
   /// Save onboarding completed status
   Future<void> saveOnboardingCompleted(bool value) async {
-    await _storage.write(
-      key: StorageKeys.onboardingCompleted,
-      value: value.toString(),
+    await _safeRun(
+      () => _storage.write(
+        key: StorageKeys.onboardingCompleted,
+        value: value.toString(),
+      ),
     );
   }
 
   /// Get onboarding completed status
   Future<bool> isOnboardingCompleted() async {
-    final value = await _storage.read(key: StorageKeys.onboardingCompleted);
+    final value = await _safeRun(
+      () => _storage.read(key: StorageKeys.onboardingCompleted),
+    );
     return value == 'true';
   }
 
   /// Save email for remember me
   Future<void> saveSavedEmail(String email) async {
-    await _storage.write(key: StorageKeys.savedEmail, value: email);
+    await _safeRun(
+      () => _storage.write(key: StorageKeys.savedEmail, value: email),
+    );
   }
 
   /// Get saved email
   Future<String?> getSavedEmail() async {
-    return await _storage.read(key: StorageKeys.savedEmail);
+    return _safeRun(() => _storage.read(key: StorageKeys.savedEmail));
   }
 
   /// Save password for remember me (pre-fill only; use secure storage)
   Future<void> saveSavedPassword(String password) async {
-    await _storage.write(key: StorageKeys.rememberedPassword, value: password);
+    await _safeRun(
+      () =>
+          _storage.write(key: StorageKeys.rememberedPassword, value: password),
+    );
   }
 
   /// Get saved password for remember me
   Future<String?> getSavedPassword() async {
-    return await _storage.read(key: StorageKeys.rememberedPassword);
+    return _safeRun(() => _storage.read(key: StorageKeys.rememberedPassword));
   }
 
   /// Clear remembered credentials (email/password)
   Future<void> clearRememberedCredentials() async {
-    await _storage.delete(key: StorageKeys.savedEmail);
-    await _storage.delete(key: StorageKeys.rememberedPassword);
+    await _safeRun(() => _storage.delete(key: StorageKeys.savedEmail));
+    await _safeRun(() => _storage.delete(key: StorageKeys.rememberedPassword));
   }
 
   /// Clear user data
   Future<void> clearUserData() async {
-    await _storage.delete(key: StorageKeys.userId);
-    await _storage.delete(key: StorageKeys.userData);
+    await _safeRun(() => _storage.delete(key: StorageKeys.userId));
+    await _safeRun(() => _storage.delete(key: StorageKeys.userData));
   }
 
   /// Clear all data (logout)
   Future<void> clearAll() async {
-    await _storage.deleteAll();
+    await _safeRun(() => _storage.deleteAll(), recoverOnError: false);
+  }
+
+  Future<T?> _safeRun<T>(
+    Future<T?> Function() action, {
+    bool recoverOnError = true,
+  }) async {
+    try {
+      return await action();
+    } on PlatformException {
+      if (recoverOnError) {
+        await _recoverStorageIfNeeded();
+      }
+      return null;
+    } catch (_) {
+      if (recoverOnError) {
+        await _recoverStorageIfNeeded();
+      }
+      return null;
+    }
+  }
+
+  Future<void> _recoverStorageIfNeeded() async {
+    if (_didAttemptRecovery) return;
+    _didAttemptRecovery = true;
+    try {
+      await _storage.deleteAll();
+    } catch (_) {
+      // Ignore recovery errors. Callers still receive safe fallback values.
+    }
   }
 }

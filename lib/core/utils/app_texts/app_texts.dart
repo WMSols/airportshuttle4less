@@ -394,7 +394,7 @@ class AppTexts {
   static const String reservation = "Reservation";
   static const String rideInfo = "Ride Info";
   static const String paymentInfo = "Payment Info";
-  static const String searchNow = "SEARCH NOW →";
+  static const String searchNow = "Search Now";
   static const String bookNow = "Book Now";
   static const String back = "Back";
   static const String completeBooking = "COMPLETE BOOKING";
@@ -461,6 +461,15 @@ class AppTexts {
   static const String airportTransfer = "Airport Transfer";
   static const String pointToPoint = "Point to Point";
   static const String hourly = "Hourly";
+  static const String resetReservationTitle = "Reset Reservation";
+  static const String resetReservationMessage =
+      "Are you sure you want to refresh? This will reset your reservation details.";
+  static const String completeRideInfoToViewVehicles =
+      "Complete Ride Info and tap Search Now to view vehicles.";
+  static const String completeRideInfoToContinue =
+      "Complete Ride Info and tap Search Now to continue.";
+  static const String selectVehicleToContinue =
+      "Select a vehicle and tap Book Now to continue.";
   static const String tabAirport = "AIRPORT";
   static const String tabPointToPoint = "POINT TO POINT";
   static const String tabHourly = "HOURLY";

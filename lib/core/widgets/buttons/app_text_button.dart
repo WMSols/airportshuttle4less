@@ -1,10 +1,11 @@
-﻿import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
+import 'package:airportshuttle4less/core/utils/app_fonts/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
+import 'package:airportshuttle4less/core/widgets/buttons/button_types.dart';
 
 /// Reusable text button with optional leading or trailing icon.
 class AppTextButton extends StatelessWidget {
@@ -65,5 +66,3 @@ class AppTextButton extends StatelessWidget {
     );
   }
 }
-
-enum IconPosition { left, right }

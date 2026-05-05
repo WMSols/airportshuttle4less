@@ -16,6 +16,7 @@ class AppIconButton extends StatelessWidget {
     this.paddingFactor,
     this.color,
     this.backgroundColor,
+    this.borderRadius,
   }) : assert(
          !isBack || icon == null,
          'When isBack is true, do not pass icon.',
@@ -32,7 +33,7 @@ class AppIconButton extends StatelessWidget {
   final double? paddingFactor;
   final Color? color;
   final Color? backgroundColor;
-
+  final double? borderRadius;
   @override
   Widget build(BuildContext context) {
     final effectiveIcon = isBack ? Iconsax.arrow_left_2 : icon!;
@@ -40,7 +41,9 @@ class AppIconButton extends StatelessWidget {
     final iconSize = size ?? AppResponsive.iconSize(context);
     return Material(
       color: backgroundColor ?? Colors.transparent,
-      borderRadius: BorderRadius.circular(AppResponsive.radius(context)),
+      borderRadius: BorderRadius.circular(
+        borderRadius ?? AppResponsive.radius(context) * 5,
+      ),
       child: InkWell(
         onTap: effectiveOnPressed,
         borderRadius: BorderRadius.circular(AppResponsive.radius(context)),

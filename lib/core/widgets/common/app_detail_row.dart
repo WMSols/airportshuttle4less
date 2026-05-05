@@ -43,7 +43,9 @@ class AppDetailRow extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppResponsive.radius(context)),
+            borderRadius: BorderRadius.circular(
+              AppResponsive.radius(context) * 5,
+            ),
             color: AppColors.primary,
           ),
           child: Padding(

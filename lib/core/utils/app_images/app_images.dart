@@ -13,6 +13,10 @@ class AppImages {
       'assets/images/common/empty/no_bookings_yet.png';
   static const String noReviewsYet =
       'assets/images/common/empty/no_reviews_yet.png';
+  static const String noPaymentInfoYet =
+      'assets/images/common/empty/no_payment_info_yet.png';
+  static const String noSelectVehicleYet =
+      'assets/images/common/empty/no_select_vehicle_yet.png';
 
   // Onboarding
   static const String onboarding1 = 'assets/images/onboarding/onboarding1.png';
@@ -169,6 +173,11 @@ class AppImages {
       'assets/images/home/vehicles/mercedes_limo_sprinter.jpg';
   static const String preferredLincolnMktLimo =
       'assets/images/home/vehicles/lincoln_mkt_limousine.jpg';
+  static const String preferredMinivan =
+      'assets/images/home/vehicles/minivan.jpg';
+  static const String preferredEcoSedan =
+      'assets/images/home/vehicles/eco_sedan.jpg';
+  static const String preferredS550 = 'assets/images/home/vehicles/s_550.jpg';
 
   // Partners (home slider)
   static const String partner1 = 'assets/images/home/partners/partner1.png';

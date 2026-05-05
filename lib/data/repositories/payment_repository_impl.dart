@@ -4,9 +4,7 @@ import 'package:airportshuttle4less/data/data_sources/remote/payment_api.dart';
 /// Payment repository implementation
 /// No payment endpoints are documented in the API documentation
 class PaymentRepositoryImpl implements PaymentRepository {
-  final PaymentApi _api;
-
-  PaymentRepositoryImpl({required PaymentApi api}) : _api = api;
+  PaymentRepositoryImpl({required PaymentApi api});
 
   @override
   Future<PaymentResult> processPayment({
