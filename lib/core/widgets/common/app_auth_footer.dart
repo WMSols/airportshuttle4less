@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_styles/app_text_styles.dart';
-import 'package:airportshuttle4less/core/widgets/buttons/app_text_button.dart';
 
 /// Reusable auth footer widget for Login and Register screens.
 /// Displays a prompt with a link to navigate between auth screens.
 /// Uses grey prompt and primary link for readability on light (white) backgrounds.
-class AppAuthFooter extends StatelessWidget {
+class AppAuthFooter extends StatefulWidget {
   const AppAuthFooter({
     super.key,
     required this.promptText,
@@ -26,25 +26,52 @@ class AppAuthFooter extends StatelessWidget {
   final VoidCallback onLinkTap;
 
   @override
+  State<AppAuthFooter> createState() => _AppAuthFooterState();
+}
+
+class _AppAuthFooterState extends State<AppAuthFooter> {
+  late final TapGestureRecognizer _tapRecognizer;
+
+  @override
+  void initState() {
+    super.initState();
+    _tapRecognizer = TapGestureRecognizer()..onTap = widget.onLinkTap;
+  }
+
+  @override
+  void didUpdateWidget(covariant AppAuthFooter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.onLinkTap != widget.onLinkTap) {
+      _tapRecognizer.onTap = widget.onLinkTap;
+    }
+  }
+
+  @override
+  void dispose() {
+    _tapRecognizer.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bodyStyle = AppTextStyles.bodyText(
+      context,
+    ).copyWith(color: AppColors.white);
+
     return Padding(
       padding: AppSpacing.symmetric(context, h: 0.04, v: 0.02).copyWith(top: 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            promptText,
-            style: AppTextStyles.bodyText(
-              context,
-            ).copyWith(color: AppColors.white),
-          ),
-          AppSpacing.horizontal(context, 0.005),
-          AppTextButton(
-            label: linkText,
-            onPressed: onLinkTap,
-            textColor: AppColors.white,
-          ),
-        ],
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(text: '${widget.promptText} ', style: bodyStyle),
+            TextSpan(
+              text: widget.linkText,
+              style: bodyStyle.copyWith(fontWeight: FontWeight.w600),
+              recognizer: _tapRecognizer,
+            ),
+          ],
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

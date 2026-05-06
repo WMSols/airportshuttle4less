@@ -1,5 +1,6 @@
 import 'package:airportshuttle4less/domain/entities/user.dart';
 import 'package:airportshuttle4less/domain/repositories/auth_repository.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 
 /// Auth use case for authentication operations
 class AuthUseCase {
@@ -8,8 +9,12 @@ class AuthUseCase {
   AuthUseCase(this._repository);
 
   /// Login with email and password
-  Future<User> login({required String email, required String password}) {
-    return _repository.login(email: email, password: password);
+  Future<User> login({
+    required String email,
+    required String password,
+    AuthRole role = AuthRole.standardUser,
+  }) {
+    return _repository.login(email: email, password: password, role: role);
   }
 
   /// Register a new user
@@ -18,7 +23,7 @@ class AuthUseCase {
     required String email,
     required String phone,
     required String password,
-    bool isCorporate = false,
+    AuthRole role = AuthRole.standardUser,
     String? corporateName,
   }) {
     return _repository.register(
@@ -26,7 +31,7 @@ class AuthUseCase {
       email: email,
       phone: phone,
       password: password,
-      isCorporate: isCorporate,
+      role: role,
       corporateName: corporateName,
     );
   }
@@ -47,33 +52,39 @@ class AuthUseCase {
   }
 
   /// Save remember me preference
-  Future<void> rememberMe(bool value) {
-    return _repository.saveRememberMe(value);
+  Future<void> rememberMe(bool value, {AuthRole role = AuthRole.standardUser}) {
+    return _repository.saveRememberMe(value, role: role);
   }
 
   /// Get remember me preference
-  Future<bool> getRememberMe() {
-    return _repository.getRememberMe();
+  Future<bool> getRememberMe({AuthRole role = AuthRole.standardUser}) {
+    return _repository.getRememberMe(role: role);
   }
 
   /// Get saved email for remember me (pre-fill)
-  Future<String?> getSavedEmail() {
-    return _repository.getSavedEmail();
+  Future<String?> getSavedEmail({AuthRole role = AuthRole.standardUser}) {
+    return _repository.getSavedEmail(role: role);
   }
 
   /// Get saved password for remember me (pre-fill)
-  Future<String?> getSavedPassword() {
-    return _repository.getSavedPassword();
+  Future<String?> getSavedPassword({AuthRole role = AuthRole.standardUser}) {
+    return _repository.getSavedPassword(role: role);
   }
 
   /// Save email for remember me
-  Future<void> saveSavedEmail(String email) {
-    return _repository.saveSavedEmail(email);
+  Future<void> saveSavedEmail(
+    String email, {
+    AuthRole role = AuthRole.standardUser,
+  }) {
+    return _repository.saveSavedEmail(email, role: role);
   }
 
   /// Save password for remember me
-  Future<void> saveSavedPassword(String password) {
-    return _repository.saveSavedPassword(password);
+  Future<void> saveSavedPassword(
+    String password, {
+    AuthRole role = AuthRole.standardUser,
+  }) {
+    return _repository.saveSavedPassword(password, role: role);
   }
 
   /// Save onboarding completed status

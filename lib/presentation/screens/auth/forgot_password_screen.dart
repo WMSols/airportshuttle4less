@@ -45,9 +45,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                 ),
                 Text(
                   AppTexts.forgotPasswordTitle,
-                  style: AppTextStyles.headline(
-                    context,
-                  ).copyWith(fontFamily: AppFonts.tertiaryFont),
+                  style: AppTextStyles.heading(context).copyWith(
+                    fontFamily: AppFonts.primaryFont,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 AppSpacing.vertical(context, 0.01),
                 Text(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 import 'package:airportshuttle4less/core/utils/app_validators/app_validators.dart';
 import 'package:airportshuttle4less/core/widgets/feedback/app_toast.dart';
 import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
@@ -22,7 +23,8 @@ class RegisterController extends GetxController {
 
   final isLoading = false.obs;
   final isPasswordVisible = false.obs;
-  final isCorporate = false.obs;
+  final authRole = AuthRole.standardUser.obs;
+  bool get isCorporate => authRole.value == AuthRole.corporate;
 
   /// Called by [RegisterScreen] so the controller uses widget-owned controllers.
   /// Must be called before the form is built.
@@ -46,8 +48,8 @@ class RegisterController extends GetxController {
     isPasswordVisible.value = !isPasswordVisible.value;
   }
 
-  void toggleCorporate() {
-    isCorporate.value = !isCorporate.value;
+  void setAuthRole(AuthRole role) {
+    authRole.value = role;
   }
 
   String? validateName(String? value) =>
@@ -68,18 +70,24 @@ class RegisterController extends GetxController {
 
     isLoading.value = true;
     try {
+      final displayName = isCorporate
+          ? corporateNameController.text.trim()
+          : nameController.text.trim();
       await _authUseCase.register(
-        name: nameController.text.trim(),
+        name: displayName,
         email: emailController.text.trim(),
         phone: phoneController.text.trim(),
         password: passwordController.text,
-        isCorporate: isCorporate.value,
-        corporateName: isCorporate.value
-            ? corporateNameController.text.trim()
-            : null,
+        role: authRole.value,
+        corporateName: isCorporate ? corporateNameController.text.trim() : null,
       );
 
-      Get.offAllNamed(AppRoutes.login);
+      Get.offAllNamed(
+        AppRoutes.login,
+        arguments: {
+          AuthRoleArgs.roleKey: AuthRoleArgs.routeValue(authRole.value),
+        },
+      );
       WidgetsBinding.instance.addPostFrameCallback((_) {
         AppToast.showSuccess(AppTexts.success, AppTexts.registrationSuccess);
       });
@@ -91,7 +99,12 @@ class RegisterController extends GetxController {
   }
 
   void navigateToLogin() {
-    Get.back();
+    Get.toNamed(
+      AppRoutes.login,
+      arguments: {
+        AuthRoleArgs.roleKey: AuthRoleArgs.routeValue(authRole.value),
+      },
+    );
   }
 
   /// TextEditingControllers are owned and disposed by [RegisterScreen].

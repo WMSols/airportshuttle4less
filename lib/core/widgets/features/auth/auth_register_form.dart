@@ -21,14 +21,21 @@ class AuthRegisterForm extends GetView<RegisterController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Name field - Using AppTextField
-          AppTextField(
-            controller: controller.nameController,
-            label: AppTexts.fullName,
-            hint: AppTexts.enterFullName,
-            prefixIcon: Iconsax.user,
-            validator: controller.validateName,
-            textInputAction: TextInputAction.next,
+          Obx(
+            () => AppTextField(
+              controller: controller.isCorporate
+                  ? controller.corporateNameController
+                  : controller.nameController,
+              label: controller.isCorporate
+                  ? AppTexts.companyName
+                  : AppTexts.fullName,
+              hint: controller.isCorporate
+                  ? AppTexts.companyName
+                  : AppTexts.enterFullName,
+              prefixIcon: Iconsax.user,
+              validator: controller.validateName,
+              textInputAction: TextInputAction.next,
+            ),
           ),
           AppSpacing.vertical(context, 0.02),
           // Email field - Using AppTextField

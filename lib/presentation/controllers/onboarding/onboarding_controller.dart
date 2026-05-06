@@ -29,6 +29,6 @@ class OnboardingController extends GetxController {
 
   Future<void> _complete() async {
     await _authUseCase.onboardingCompleted(true);
-    Get.offAllNamed(AppRoutes.login);
+    Get.offAllNamed(AppRoutes.selectRole);
   }
 }

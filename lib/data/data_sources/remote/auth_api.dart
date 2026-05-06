@@ -45,4 +45,25 @@ class AuthApi {
     );
     return response.data as Map<String, dynamic>;
   }
+
+  /// Corporate register
+  Future<dynamic> corporateRegister({
+    required String companyName,
+    required String email,
+    required String password,
+    required String phone,
+  }) async {
+    final response = await _dio.post(
+      ApiConstants.corporateRegister,
+      data: {
+        'objArr': {
+          'CompanyName': companyName,
+          'Email': email,
+          'Password': password,
+          'Phone': phone,
+        },
+      },
+    );
+    return response.data;
+  }
 }

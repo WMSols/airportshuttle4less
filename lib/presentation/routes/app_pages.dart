@@ -9,6 +9,7 @@ import 'package:airportshuttle4less/presentation/bindings/main_binding.dart';
 import 'package:airportshuttle4less/presentation/bindings/onboarding_binding.dart';
 import 'package:airportshuttle4less/presentation/bindings/profile_binding.dart';
 import 'package:airportshuttle4less/presentation/screens/auth/login_screen.dart';
+import 'package:airportshuttle4less/presentation/screens/auth/select_role_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/auth/register_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/auth/forgot_password_screen.dart';
 import 'package:airportshuttle4less/presentation/screens/onboarding/onboarding_screen.dart';
@@ -47,6 +48,11 @@ abstract class AppPages {
       name: AppRoutes.onboarding,
       page: () => const OnboardingScreen(),
       binding: OnboardingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.selectRole,
+      page: () => const SelectRoleScreen(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: AppRoutes.login,
