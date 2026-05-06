@@ -22,7 +22,20 @@ class AppTexts {
 
   // Auth
   static const String login = "Login";
+  static const String register = "Register";
   static const String signUp = "Sign Up";
+  static const String standardUser = "Standard User";
+  static const String corporateUser = "Corporate User";
+  static const String continueAsCorporateUser = "Continue as Corporate User";
+  static const String continueAsStandardUser = "Continue as Standard User";
+  static const String chooseYourRoleTitle = "Choose Your Role";
+  static const String chooseYourRoleSubtitle =
+      "Select the account type that best fits your needs";
+  static const String standard = "Standard";
+  static const String corporate = "Corporate";
+  static const String as = "as ";
+  static const String alreadyCorporateUser =
+      "Already partnering with us as a Corporate User?";
   static const String email = "Email";
   static const String password = "Password";
   static const String confirmPassword = "Confirm Password";

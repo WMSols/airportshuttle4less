@@ -2,6 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/services.dart';
 
 import 'package:airportshuttle4less/core/constants/storage_keys.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 
 /// Secure storage wrapper for local data persistence
 class SecureStorageSource {
@@ -40,18 +41,24 @@ class SecureStorageSource {
   }
 
   /// Save remember me preference
-  Future<void> saveRememberMe(bool value) async {
+  Future<void> saveRememberMe(
+    bool value, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final rememberKey = role == AuthRole.corporate
+        ? StorageKeys.rememberMeCorporate
+        : StorageKeys.rememberMe;
     await _safeRun(
-      () =>
-          _storage.write(key: StorageKeys.rememberMe, value: value.toString()),
+      () => _storage.write(key: rememberKey, value: value.toString()),
     );
   }
 
   /// Get remember me preference
-  Future<bool> getRememberMe() async {
-    final value = await _safeRun(
-      () => _storage.read(key: StorageKeys.rememberMe),
-    );
+  Future<bool> getRememberMe({AuthRole role = AuthRole.standardUser}) async {
+    final rememberKey = role == AuthRole.corporate
+        ? StorageKeys.rememberMeCorporate
+        : StorageKeys.rememberMe;
+    final value = await _safeRun(() => _storage.read(key: rememberKey));
     return value == 'true';
   }
 
@@ -74,34 +81,57 @@ class SecureStorageSource {
   }
 
   /// Save email for remember me
-  Future<void> saveSavedEmail(String email) async {
-    await _safeRun(
-      () => _storage.write(key: StorageKeys.savedEmail, value: email),
-    );
+  Future<void> saveSavedEmail(
+    String email, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final emailKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedEmailCorporate
+        : StorageKeys.savedEmail;
+    await _safeRun(() => _storage.write(key: emailKey, value: email));
   }
 
   /// Get saved email
-  Future<String?> getSavedEmail() async {
-    return _safeRun(() => _storage.read(key: StorageKeys.savedEmail));
+  Future<String?> getSavedEmail({AuthRole role = AuthRole.standardUser}) async {
+    final emailKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedEmailCorporate
+        : StorageKeys.savedEmail;
+    return _safeRun(() => _storage.read(key: emailKey));
   }
 
   /// Save password for remember me (pre-fill only; use secure storage)
-  Future<void> saveSavedPassword(String password) async {
-    await _safeRun(
-      () =>
-          _storage.write(key: StorageKeys.rememberedPassword, value: password),
-    );
+  Future<void> saveSavedPassword(
+    String password, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final passwordKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedPasswordCorporate
+        : StorageKeys.rememberedPassword;
+    await _safeRun(() => _storage.write(key: passwordKey, value: password));
   }
 
   /// Get saved password for remember me
-  Future<String?> getSavedPassword() async {
-    return _safeRun(() => _storage.read(key: StorageKeys.rememberedPassword));
+  Future<String?> getSavedPassword({
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final passwordKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedPasswordCorporate
+        : StorageKeys.rememberedPassword;
+    return _safeRun(() => _storage.read(key: passwordKey));
   }
 
   /// Clear remembered credentials (email/password)
-  Future<void> clearRememberedCredentials() async {
-    await _safeRun(() => _storage.delete(key: StorageKeys.savedEmail));
-    await _safeRun(() => _storage.delete(key: StorageKeys.rememberedPassword));
+  Future<void> clearRememberedCredentials({
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final emailKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedEmailCorporate
+        : StorageKeys.savedEmail;
+    final passwordKey = role == AuthRole.corporate
+        ? StorageKeys.rememberedPasswordCorporate
+        : StorageKeys.rememberedPassword;
+    await _safeRun(() => _storage.delete(key: emailKey));
+    await _safeRun(() => _storage.delete(key: passwordKey));
   }
 
   /// Clear user data

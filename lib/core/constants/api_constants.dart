@@ -14,6 +14,7 @@ class ApiConstants {
   static String get register => EnvConfig.apiRegister;
   static String get forgotPassword => EnvConfig.apiForgotPassword;
   static String get corporateLogin => EnvConfig.apiCorporateLogin;
+  static String get corporateRegister => EnvConfig.apiCorporateRegister;
 
   // Booking endpoints
   static String get addReservation => EnvConfig.apiAddReservation;

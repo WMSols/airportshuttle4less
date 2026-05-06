@@ -20,6 +20,7 @@ class EnvConfig {
   static String get apiRegister => _required('API_REGISTER');
   static String get apiForgotPassword => _required('API_FORGOT_PASSWORD');
   static String get apiCorporateLogin => _required('API_CORPORATE_LOGIN');
+  static String get apiCorporateRegister => _required('API_CORPORATE_REGISTER');
   static String get apiAddReservation => _required('API_ADD_RESERVATION');
   static String get apiApplyOffer => _required('API_APPLY_OFFER');
   static String get apiCheckEmail => _required('API_CHECK_EMAIL');

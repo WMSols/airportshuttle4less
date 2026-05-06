@@ -8,6 +8,7 @@ import 'package:airportshuttle4less/data/data_sources/remote/auth_api.dart';
 import 'package:airportshuttle4less/data/models/auth/login_request.dart';
 import 'package:airportshuttle4less/data/models/auth/register_request.dart';
 import 'package:airportshuttle4less/data/models/auth/user_model.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 
 /// Auth repository implementation
 /// Only includes methods for documented API endpoints
@@ -42,10 +43,15 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<User> login({required String email, required String password}) async {
-    final response = await _api.login(
-      LoginRequest(email: email, password: password),
-    );
+  Future<User> login({
+    required String email,
+    required String password,
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    final request = LoginRequest(email: email, password: password);
+    final response = role == AuthRole.corporate
+        ? await _api.corporateLogin(request)
+        : await _api.login(request);
     final data = _unwrapResponse(response);
 
     final loginDetails = data['LoginDetails'];
@@ -67,26 +73,41 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String phone,
     required String password,
-    bool isCorporate = false,
+    AuthRole role = AuthRole.standardUser,
     String? corporateName,
   }) async {
     final nameParts = name.split(' ');
     final firstName = nameParts.isNotEmpty ? nameParts.first : '';
     final lastName = nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
 
-    final raw = await _api.register(
-      RegisterRequest(
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      ),
-    );
+    final raw = role == AuthRole.corporate
+        ? await _api.corporateRegister(
+            companyName: (corporateName?.trim().isNotEmpty ?? false)
+                ? corporateName!.trim()
+                : name,
+            email: email,
+            password: password,
+            phone: phone,
+          )
+        : await _api.register(
+            RegisterRequest(
+              firstName: firstName,
+              lastName: lastName,
+              email: email,
+              password: password,
+            ),
+          );
     final data = _unwrapResponse(raw);
 
     final retCode = data['retCode'] ?? data['RetCode'];
     if (retCode == 1 || retCode == '1') {
-      return User(id: '', name: name, email: email, phone: phone, role: 'user');
+      return User(
+        id: '',
+        name: name,
+        email: email,
+        phone: phone,
+        role: role == AuthRole.corporate ? 'corporate' : 'user',
+      );
     }
 
     throw Exception('Registration failed');
@@ -119,36 +140,47 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> saveRememberMe(bool value) async {
-    await _secureStorage.saveRememberMe(value);
+  Future<void> saveRememberMe(
+    bool value, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    await _secureStorage.saveRememberMe(value, role: role);
     if (!value) {
-      await _secureStorage.clearRememberedCredentials();
+      await _secureStorage.clearRememberedCredentials(role: role);
     }
   }
 
   @override
-  Future<bool> getRememberMe() async {
-    return await _secureStorage.getRememberMe();
+  Future<bool> getRememberMe({AuthRole role = AuthRole.standardUser}) async {
+    return await _secureStorage.getRememberMe(role: role);
   }
 
   @override
-  Future<String?> getSavedEmail() async {
-    return await _secureStorage.getSavedEmail();
+  Future<String?> getSavedEmail({AuthRole role = AuthRole.standardUser}) async {
+    return await _secureStorage.getSavedEmail(role: role);
   }
 
   @override
-  Future<String?> getSavedPassword() async {
-    return await _secureStorage.getSavedPassword();
+  Future<String?> getSavedPassword({
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    return await _secureStorage.getSavedPassword(role: role);
   }
 
   @override
-  Future<void> saveSavedEmail(String email) async {
-    await _secureStorage.saveSavedEmail(email);
+  Future<void> saveSavedEmail(
+    String email, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    await _secureStorage.saveSavedEmail(email, role: role);
   }
 
   @override
-  Future<void> saveSavedPassword(String password) async {
-    await _secureStorage.saveSavedPassword(password);
+  Future<void> saveSavedPassword(
+    String password, {
+    AuthRole role = AuthRole.standardUser,
+  }) async {
+    await _secureStorage.saveSavedPassword(password, role: role);
   }
 
   @override

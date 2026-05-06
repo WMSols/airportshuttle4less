@@ -1,9 +1,14 @@
 import 'package:airportshuttle4less/domain/entities/user.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 
 /// Auth repository interface defining authentication operations
 abstract class AuthRepository {
   /// Login with email/phone and password
-  Future<User> login({required String email, required String password});
+  Future<User> login({
+    required String email,
+    required String password,
+    AuthRole role = AuthRole.standardUser,
+  });
 
   /// Register a new user account
   Future<User> register({
@@ -11,7 +16,7 @@ abstract class AuthRepository {
     required String email,
     required String phone,
     required String password,
-    bool isCorporate = false,
+    AuthRole role = AuthRole.standardUser,
     String? corporateName,
   });
 
@@ -25,22 +30,31 @@ abstract class AuthRepository {
   Future<bool> isLoggedIn();
 
   /// Save remember me preference
-  Future<void> saveRememberMe(bool value);
+  Future<void> saveRememberMe(
+    bool value, {
+    AuthRole role = AuthRole.standardUser,
+  });
 
   /// Get remember me preference
-  Future<bool> getRememberMe();
+  Future<bool> getRememberMe({AuthRole role = AuthRole.standardUser});
 
   /// Get saved email for remember me (pre-fill)
-  Future<String?> getSavedEmail();
+  Future<String?> getSavedEmail({AuthRole role = AuthRole.standardUser});
 
   /// Get saved password for remember me (pre-fill)
-  Future<String?> getSavedPassword();
+  Future<String?> getSavedPassword({AuthRole role = AuthRole.standardUser});
 
   /// Save email for remember me
-  Future<void> saveSavedEmail(String email);
+  Future<void> saveSavedEmail(
+    String email, {
+    AuthRole role = AuthRole.standardUser,
+  });
 
   /// Save password for remember me
-  Future<void> saveSavedPassword(String password);
+  Future<void> saveSavedPassword(
+    String password, {
+    AuthRole role = AuthRole.standardUser,
+  });
 
   /// Save onboarding completed status
   Future<void> saveOnboardingCompleted(bool value);

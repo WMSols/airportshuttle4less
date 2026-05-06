@@ -9,6 +9,7 @@ import 'package:airportshuttle4less/core/utils/app_colors/app_colors.dart';
 import 'package:airportshuttle4less/core/utils/app_responsive/app_responsive.dart';
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 import 'package:airportshuttle4less/core/widgets/buttons/app_button.dart';
 import 'package:airportshuttle4less/core/widgets/buttons/app_text_button.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
@@ -28,13 +29,17 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+  late final AuthRole _authRole;
 
   @override
   void initState() {
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
-    Get.find<LoginController>().setTextControllers(
+    _authRole = AuthRoleArgs.fromArguments(Get.arguments);
+    final controller = Get.find<LoginController>();
+    controller.setAuthRole(_authRole);
+    controller.setTextControllers(
       email: _emailController,
       password: _passwordController,
     );
@@ -82,18 +87,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         AppSpacing.vertical(context, 0.02),
                         Text(
-                          AppTexts.appName,
-                          style: AppTextStyles.bodyText(
-                            context,
-                          ).copyWith(fontFamily: AppFonts.tertiaryFont),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
                           AppTexts.login,
-                          style: AppTextStyles.headline(
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.heading(
                             context,
                           ).copyWith(fontFamily: AppFonts.tertiaryFont),
+                        ),
+                        Text.rich(
                           textAlign: TextAlign.center,
+                          style: AppTextStyles.bodyText(context).copyWith(
+                            fontFamily: AppFonts.primaryFont,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: AppTexts.as,
+                                style: AppTextStyles.bodyText(context).copyWith(
+                                  fontFamily: AppFonts.primaryFont,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(text: _authRole.displayName),
+                            ],
+                          ),
                         ),
                         const AuthLoginForm(),
                         Align(

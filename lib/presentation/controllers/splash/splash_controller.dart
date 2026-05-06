@@ -15,14 +15,14 @@ class SplashController extends GetxController {
       if (!onboardingDone) {
         Get.offAllNamed(AppRoutes.onboarding);
       } else if (!loggedIn) {
-        Get.offAllNamed(AppRoutes.login);
+        Get.offAllNamed(AppRoutes.selectRole);
       } else {
         await _authUseCase.getCurrentUser();
         Get.offAllNamed(AppRoutes.main);
       }
     } catch (_) {
       // Keep startup stable if local storage state is corrupted on device.
-      Get.offAllNamed(AppRoutes.login);
+      Get.offAllNamed(AppRoutes.selectRole);
     }
   }
 }

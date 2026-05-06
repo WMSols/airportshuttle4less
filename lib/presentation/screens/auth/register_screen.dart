@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:airportshuttle4less/core/utils/app_spacing/app_spacing.dart';
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 import 'package:airportshuttle4less/core/widgets/buttons/app_button.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_custom_app_bar.dart';
 import 'package:airportshuttle4less/core/widgets/common/app_custom_background.dart';
@@ -29,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController _passwordController;
   late final TextEditingController _confirmPasswordController;
   late final TextEditingController _corporateNameController;
+  late final AuthRole _authRole;
 
   @override
   void initState() {
@@ -39,7 +41,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
     _corporateNameController = TextEditingController();
-    Get.find<RegisterController>().setTextControllers(
+    _authRole = AuthRoleArgs.fromArguments(Get.arguments);
+    final controller = Get.find<RegisterController>();
+    controller.setAuthRole(_authRole);
+    controller.setTextControllers(
       name: _nameController,
       email: _emailController,
       phone: _phoneController,
@@ -85,16 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          AppTexts.appName,
-                          style: AppTextStyles.bodyText(
+                          AppTexts.register,
+                          style: AppTextStyles.heading(
                             context,
                           ).copyWith(fontFamily: AppFonts.tertiaryFont),
                         ),
-                        Text(
-                          AppTexts.signUp,
-                          style: AppTextStyles.headline(
-                            context,
-                          ).copyWith(fontFamily: AppFonts.tertiaryFont),
+                        Text.rich(
+                          style: AppTextStyles.bodyText(context).copyWith(
+                            fontFamily: AppFonts.primaryFont,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: AppTexts.as,
+                                style: AppTextStyles.bodyText(context).copyWith(
+                                  fontFamily: AppFonts.primaryFont,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              TextSpan(text: _authRole.displayName),
+                            ],
+                          ),
                         ),
                         AppSpacing.vertical(context, 0.03),
                         const AuthRegisterForm(),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:airportshuttle4less/core/utils/app_texts/app_texts.dart';
+import 'package:airportshuttle4less/core/utils/auth/auth_role.dart';
 import 'package:airportshuttle4less/core/utils/app_validators/app_validators.dart';
 import 'package:airportshuttle4less/core/widgets/feedback/app_toast.dart';
 import 'package:airportshuttle4less/domain/use_cases/auth_use_case.dart';
@@ -19,6 +20,7 @@ class LoginController extends GetxController {
   final isLoading = false.obs;
   final rememberMe = false.obs;
   final isPasswordVisible = false.obs;
+  final authRole = AuthRole.standardUser.obs;
 
   /// Called by [LoginScreen] so the controller uses widget-owned controllers.
   /// Must be called before the form is built.
@@ -28,20 +30,23 @@ class LoginController extends GetxController {
   }) {
     emailController = email;
     passwordController = password;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
     _loadSavedCredentials();
   }
 
+  void setAuthRole(AuthRole role) {
+    authRole.value = role;
+  }
+
   Future<void> _loadSavedCredentials() async {
-    final shouldRemember = await _authUseCase.getRememberMe();
+    final shouldRemember = await _authUseCase.getRememberMe(
+      role: authRole.value,
+    );
     if (shouldRemember) {
       rememberMe.value = true;
-      final email = await _authUseCase.getSavedEmail();
-      final password = await _authUseCase.getSavedPassword();
+      final email = await _authUseCase.getSavedEmail(role: authRole.value);
+      final password = await _authUseCase.getSavedPassword(
+        role: authRole.value,
+      );
       if (email != null && email.isNotEmpty) {
         emailController.text = email;
       }
@@ -72,14 +77,21 @@ class LoginController extends GetxController {
       await _authUseCase.login(
         email: emailController.text.trim(),
         password: passwordController.text,
+        role: authRole.value,
       );
 
       if (rememberMe.value) {
-        await _authUseCase.rememberMe(true);
-        await _authUseCase.saveSavedEmail(emailController.text.trim());
-        await _authUseCase.saveSavedPassword(passwordController.text);
+        await _authUseCase.rememberMe(true, role: authRole.value);
+        await _authUseCase.saveSavedEmail(
+          emailController.text.trim(),
+          role: authRole.value,
+        );
+        await _authUseCase.saveSavedPassword(
+          passwordController.text,
+          role: authRole.value,
+        );
       } else {
-        await _authUseCase.rememberMe(false);
+        await _authUseCase.rememberMe(false, role: authRole.value);
       }
 
       Get.offAllNamed(AppRoutes.main);
@@ -91,7 +103,12 @@ class LoginController extends GetxController {
   }
 
   void navigateToRegister() {
-    Get.toNamed(AppRoutes.register);
+    Get.toNamed(
+      AppRoutes.register,
+      arguments: {
+        AuthRoleArgs.roleKey: AuthRoleArgs.routeValue(authRole.value),
+      },
+    );
   }
 
   void navigateToForgotPassword() {

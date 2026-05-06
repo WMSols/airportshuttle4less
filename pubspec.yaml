@@ -89,10 +89,9 @@ flutter:
           weight: 500
         - asset: assets/fonts/Inter-Bold.ttf
           weight: 700
-    - family: LilitaOne
+    - family: Milker
       fonts:
-        - asset: assets/fonts/LilitaOne-Regular.ttf
-          weight: 800
+        - asset: assets/fonts/Milker.otf
 
 flutter_launcher_icons:
   android: true

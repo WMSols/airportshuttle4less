@@ -23,10 +23,10 @@ class AppImages {
   static const String onboarding2 = 'assets/images/onboarding/onboarding2.png';
   static const String onboarding3 = 'assets/images/onboarding/onboarding3.png';
 
-  // Login
-  static const String login = 'assets/images/login/login.png';
-  static const String forgotPassword =
-      'assets/images/login/forgot_password.png';
+  // Auth
+  static const String selectRole = 'assets/images/auth/select_role.png';
+  static const String standardUser = 'assets/images/auth/standard_user.png';
+  static const String corporateUser = 'assets/images/auth/corporate_user.png';
 
   // Home
   static const String homeBanner = 'assets/images/home/home_banner.jpg';
