@@ -66,7 +66,7 @@ class AppMarketingImageTile extends StatelessWidget {
                   color: badgeTextColor,
                   fontWeight: FontWeight.w700,
                   fontFamily: AppFonts.primaryFont,
-                  fontSize: AppResponsive.scaleSize(context, 10),
+                  fontSize: AppResponsive.scaleSize(context, 8),
                 ),
               ),
             ),

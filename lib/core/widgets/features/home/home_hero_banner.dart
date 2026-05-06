@@ -11,7 +11,7 @@ class HomeHeroBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final h = AppResponsive.screenHeight(context) * 0.2;
+    final h = AppResponsive.screenHeight(context) * 0.18;
     final radius = AppResponsive.radius(context);
 
     final card = ClipRRect(
