@@ -32,7 +32,7 @@ class HomeServicesGrid extends StatelessWidget {
             crossAxisCount: 2,
             crossAxisSpacing: spacingH,
             mainAxisSpacing: spacingV,
-            childAspectRatio: 1.12,
+            childAspectRatio: 1.8,
           ),
           itemCount: tiles.length,
           itemBuilder: (context, i) {

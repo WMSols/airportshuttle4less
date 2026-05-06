@@ -105,7 +105,7 @@ class _ProcessTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppResponsive.radius(context)),
       ),
       child: Padding(
-        padding: AppSpacing.symmetric(context, h: 0.02, v: 0.01),
+        padding: AppSpacing.symmetric(context, h: 0.02, v: 0.005),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -119,16 +119,15 @@ class _ProcessTile extends StatelessWidget {
               child: Icon(
                 icon,
                 color: AppColors.white,
-                size: AppResponsive.iconSize(context, factor: 1.45),
+                size: AppResponsive.iconSize(context, factor: 1.2),
               ),
             ),
-            AppSpacing.vertical(context, 0.01),
             Text(
               label,
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.bodyText(
+              style: AppTextStyles.hintText(
                 context,
               ).copyWith(color: AppColors.white),
             ),

@@ -21,7 +21,7 @@ class HomeLocationsSection extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final c = controller;
     final r = AppResponsive.radius(context);
-    final slideHeight = AppResponsive.screenHeight(context) * 0.24;
+    final slideHeight = AppResponsive.screenHeight(context) * 0.2;
     final slides = HomeConstants.locationSlides;
 
     return Column(
@@ -113,7 +113,7 @@ class _LocationSlide extends StatelessWidget {
                     color: AppColors.black,
                     fontWeight: FontWeight.w700,
                     fontFamily: AppFonts.primaryFont,
-                    fontSize: AppResponsive.scaleSize(context, 10),
+                    fontSize: AppResponsive.scaleSize(context, 8),
                   ),
                 ),
               ),
